@@ -1,3 +1,5 @@
+#config cho wampp/xamp
 wordpress/wp-config.php
 
-C:\wamp64\www\CMS_NHOM_H\docker-compose.yml
+# docker-compose
+docker-compose.yml

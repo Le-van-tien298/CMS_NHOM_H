@@ -1,5 +1,2 @@
 #config cho wampp/xamp
 /wordpress/wp-config.php
-
-# docker-compose
-docker-compose.yml

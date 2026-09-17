@@ -1,0 +1,319 @@
+/* =========================
+   CMS HEADER - GROUP C
+========================= */
+
+.cms-header {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 999;
+}
+
+.cms-header-container {
+    width: 100%;
+    min-height: 112px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    box-sizing: border-box;
+}
+
+/* Logo Group C */
+
+.cms-header-logo {
+    width: 155px;
+    min-height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #555555;
+    font-size: 28px;
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.cms-header-logo:hover {
+    color: #222222;
+}
+
+/* Home */
+
+.cms-header-home {
+    width: 105px;
+    min-height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eeeeee;
+    color: #555555;
+    font-size: 22px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.cms-header-home:hover {
+    background: #e2e2e2;
+    color: #222222;
+}
+
+/* Search form */
+
+.cms-header-search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.cms-header-search-form input {
+    width: 315px;
+    height: 48px;
+    padding: 0 18px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #333333;
+    font-size: 20px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.cms-header-search-form input:focus {
+    border-color: #999999;
+}
+
+.cms-header-search-form button {
+    height: 48px;
+    padding: 0 20px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #333333;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cms-header-search-form button:hover {
+    background: #eeeeee;
+}
+
+/* Menu chính */
+
+.cms-header-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 42px;
+    flex: 1;
+    min-width: 0;
+}
+
+.cms-header-menu a {
+    color: #555555;
+    font-size: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.cms-header-menu a:hover {
+    color: #111111;
+}
+
+/* Menu icon */
+
+.cms-header-menu-icon,
+.cms-header-search-icon,
+.cms-header-account {
+    min-width: 82px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #555555;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.cms-header-menu-icon:hover,
+.cms-header-search-icon:hover,
+.cms-header-account:hover {
+    color: #111111;
+}
+
+.cms-header-menu-icon small,
+.cms-header-search-icon small,
+.cms-header-account small {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* Ba dấu chấm */
+
+.cms-dots {
+    color: #111111;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 20px;
+    letter-spacing: 2px;
+}
+
+/* Search icon */
+
+.cms-header-search-icon span {
+    color: #111111;
+    font-size: 43px;
+    line-height: 35px;
+    transform: rotate(-20deg);
+}
+
+/* Account icon */
+
+.cms-account-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #888888;
+    border-radius: 50%;
+    color: #888888;
+    font-size: 28px;
+    line-height: 1;
+}
+
+/* Responsive */
+
+@media (max-width: 1200px) {
+    .cms-header-logo {
+        width: 140px;
+        font-size: 25px;
+    }
+
+    .cms-header-home {
+        width: 90px;
+        font-size: 20px;
+    }
+
+    .cms-header-search-form {
+        padding: 0 15px;
+    }
+
+    .cms-header-search-form input {
+        width: 230px;
+        font-size: 17px;
+    }
+
+    .cms-header-search-form button {
+        font-size: 17px;
+    }
+
+    .cms-header-menu {
+        gap: 20px;
+    }
+
+    .cms-header-menu a {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 900px) {
+    .cms-header-container {
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .cms-header-logo,
+    .cms-header-home {
+        min-height: 70px;
+        height: 70px;
+    }
+
+    .cms-header-logo {
+        width: 140px;
+    }
+
+    .cms-header-home {
+        width: 90px;
+    }
+
+    .cms-header-search-form {
+        padding: 0 10px;
+    }
+
+    .cms-header-search-form input {
+        width: 220px;
+    }
+
+    .cms-header-menu {
+        order: 5;
+        width: 100%;
+        flex-basis: 100%;
+        padding: 15px 0;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cms-header-menu-icon,
+    .cms-header-search-icon,
+    .cms-header-account {
+        min-height: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cms-header-logo {
+        width: 125px;
+        font-size: 22px;
+    }
+
+    .cms-header-home {
+        width: 75px;
+        font-size: 18px;
+    }
+
+    .cms-header-search-form {
+        order: 4;
+        width: 100%;
+        padding: 12px 0;
+    }
+
+    .cms-header-search-form input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .cms-header-search-form button {
+        font-size: 16px;
+    }
+
+    .cms-header-menu {
+        gap: 15px;
+    }
+
+    .cms-header-menu a {
+        font-size: 15px;
+    }
+
+    .cms-header-menu-icon,
+    .cms-header-search-icon,
+    .cms-header-account {
+        min-width: 55px;
+    }
+
+    .cms-header-menu-icon small,
+    .cms-header-search-icon small,
+    .cms-header-account small {
+        font-size: 12px;
+    }
+}

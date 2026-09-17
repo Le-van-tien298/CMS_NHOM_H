@@ -48,26 +48,34 @@ if (!defined('ABSPATH')) {
         <!-- Menu icon -->
         <a class="cms-header-menu-icon" href="<?php echo esc_url(home_url('/menu')); ?>">
 
-            <span class="cms-dots">•••</span>
+            <span class="cms-dots"><i class="fa-solid fa-ellipsis"></i></span>
             <small>Menu</small>
 
         </a>
 
         <!-- Search icon -->
-        <a class="cms-header-search-icon" href="<?php echo esc_url(home_url('/?s=')); ?>">
-
-            <span>⌕</span>
+        <button
+            type="button"
+            class="cms-header-search-icon cms-header-search-button"
+            id="cms-search-toggle"
+            aria-label="Mở tìm kiếm"
+        >
+            <span><i class="fa-solid fa-magnifying-glass"></i></span>
             <small>Search</small>
-
-        </a>
+        </button>
 
         <!-- Account -->
         <a class="cms-header-account" href="<?php echo esc_url(wp_login_url()); ?>">
 
-            <span class="cms-account-icon">◉</span>
+            <span class="cms-account-icon"><i class="fa-solid fa-user"></i></span>
             <small>Account</small>
 
         </a>
 
     </div>
+
+    <!-- Dropdown search box -->
+    <?php if (function_exists('cms_nhom_h_search_shortcode')) {
+        echo cms_nhom_h_search_shortcode();
+    } ?>
 </header>

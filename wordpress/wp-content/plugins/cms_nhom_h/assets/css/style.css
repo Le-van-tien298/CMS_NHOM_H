@@ -1,0 +1,136 @@
+.cms-post-card {
+    display: flex;
+    width: 100%;
+    max-width: 750px;
+    min-height: 145px;
+
+    margin: 20px auto;
+
+    background: #fff;
+    border: 1px solid #e5e5e5;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   PHẦN NGÀY THÁNG
+========================= */
+
+.cms-post-date {
+    width: 105px;
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.cms-day {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 42px;
+    line-height: 1;
+
+    color: #111;
+}
+
+.cms-month {
+    margin-top: 6px;
+
+    font-size: 12px;
+    letter-spacing: 0.5px;
+
+    color: #777;
+}
+
+
+/* =========================
+   ĐƯỜNG DỌC
+========================= */
+
+.cms-post-divider {
+    width: 1px;
+
+    margin: 25px 0;
+
+    background: #999;
+}
+
+
+/* =========================
+   NỘI DUNG BÊN PHẢI
+========================= */
+
+.cms-post-info {
+    flex: 1;
+
+    padding: 25px 25px 25px 20px;
+}
+
+.cms-post-title {
+    margin: 0 0 10px;
+
+    font-size: 18px;
+    line-height: 1.4;
+
+    font-weight: 600;
+
+    color: #1976c5;
+}
+
+.cms-post-excerpt {
+    font-size: 14px;
+    line-height: 1.5;
+
+    color: #777;
+}
+
+.cms-post-content-original {
+    margin-top: 15px;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    color: #555;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .cms-post-card {
+        min-height: auto;
+    }
+
+    .cms-post-date {
+        width: 80px;
+        padding: 10px;
+    }
+
+    .cms-day {
+        font-size: 32px;
+    }
+
+    .cms-month {
+        font-size: 10px;
+    }
+
+    .cms-post-info {
+        padding: 20px 15px;
+    }
+
+    .cms-post-title {
+        font-size: 16px;
+    }
+}

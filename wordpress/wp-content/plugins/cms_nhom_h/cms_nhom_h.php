@@ -18,6 +18,7 @@ define('CMS_NHOM_H_URL', plugin_dir_url(__FILE__));
 // Load module
 require_once CMS_NHOM_H_PATH . 'includes/module-content.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
+require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'database.php';
 
 // Tạo database khi kích hoạt plugin
@@ -62,6 +63,14 @@ function cms_nhom_h_admin_page()
 // Nạp CSS frontend
 function cms_nhom_h_enqueue_assets()
 {
+    // Font Awesome 6 CDN
+    wp_enqueue_style(
+        'font-awesome-6',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+        array(),
+        '6.5.1'
+    );
+
     // CSS chung
     wp_enqueue_style(
         'cms-nhom-h-style',
@@ -70,12 +79,29 @@ function cms_nhom_h_enqueue_assets()
         '1.0.5'
     );
 
-    // CSS riêng cho header
+    // CSS header
     wp_enqueue_style(
         'cms-nhom-h-header',
         CMS_NHOM_H_URL . 'assets/css/header.css',
         array('cms-nhom-h-style'),
         '1.0.0'
+    );
+
+    // CSS search
+    wp_enqueue_style(
+        'cms-nhom-h-search',
+        CMS_NHOM_H_URL . 'assets/css/search.css',
+        array('cms-nhom-h-header'),
+        '1.0.0'
+    );
+
+    // JavaScript search
+    wp_enqueue_script(
+        'cms-nhom-h-search',
+        CMS_NHOM_H_URL . 'assets/js/search.js',
+        array(),
+        '1.0.0',
+        true
     );
 }
 

@@ -5,6 +5,8 @@ Description: Plugin bán shop thời trang
 Version: 1.0
 Author: CMS NHOM H
 */
+// Load module
+require_once plugin_dir_path(__FILE__) . 'includes/module-content.php';
 require_once plugin_dir_path(__FILE__) . 'database.php';
 register_activation_hook(
     __FILE__,
@@ -34,3 +36,14 @@ function cms_nhom_h_admin_page()
                 </div>
                 <?php
 }
+function cms_nhom_h_enqueue_assets()
+{
+    wp_enqueue_style(
+        'cms-nhom-h-style',
+        plugin_dir_url(__FILE__) . 'assets/css/style.css',
+        array(),
+        '1.0.0'
+    );
+}
+
+add_action('wp_enqueue_scripts', 'cms_nhom_h_enqueue_assets');

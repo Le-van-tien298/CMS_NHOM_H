@@ -1,12 +1,14 @@
 .cms-search-box {
     display: none;
-    width: 100%;
-    padding: 15px 10px;
+    width: calc(100% - 40px);
+    max-width: 1300px;
+    margin: 10px auto;
+    padding: 15px 24px;
     box-sizing: border-box;
     background: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 6px;
-    margin-top: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
 }
 
 .cms-search-box.active {
@@ -16,15 +18,15 @@
 .cms-search-form {
     display: flex;
     align-items: center;
-    gap: 25px;
-    min-height: 100px;
-    padding: 25px 30px;
+    gap: 16px;
+    min-height: 50px;
+    padding: 8px 12px;
     box-sizing: border-box;
 }
 
 .cms-search-icon {
-    font-size: 35px;
-    color: #222222;
+    font-size: 22px;
+    color: #6b7280;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -33,50 +35,58 @@
 .cms-search-form input {
     flex: 1;
     min-width: 0;
-    height: 60px;
+    height: 44px;
     border: none;
     outline: none;
-    font-size: 30px;
-    color: #5d7894;
+    font-size: 16px;
+    color: #1f2937;
+    background: transparent;
 }
 
 .cms-search-form input::placeholder {
-    color: #5d7894;
+    color: #9ca3af;
     opacity: 1;
 }
 
 .cms-search-form button {
-    width: 138px;
-    height: 70px;
+    height: 44px;
+    padding: 0 24px;
     border: none;
-    border-radius: 7px;
-    background: #28a745;
+    border-radius: 8px;
+    background: #2563eb;
     color: #ffffff;
-    font-size: 28px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .cms-search-form button:hover {
-    background: #218838;
+    background: #1d4ed8;
 }
 
 @media (max-width: 768px) {
+    .cms-search-box {
+        margin: 8px 16px;
+        padding: 10px 14px;
+    }
+
     .cms-search-form {
-        gap: 12px;
-        padding: 15px;
+        gap: 10px;
     }
 
     .cms-search-icon {
-        font-size: 25px;
+        font-size: 18px;
     }
 
     .cms-search-form input {
-        font-size: 20px;
+        font-size: 14px;
+        height: 38px;
     }
 
     .cms-search-form button {
-        width: 95px;
-        height: 55px;
-        font-size: 20px;
+        height: 38px;
+        padding: 0 16px;
+        font-size: 14px;
     }
 }

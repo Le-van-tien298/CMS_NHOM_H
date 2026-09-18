@@ -90,7 +90,7 @@ function cms_nhom_h_enqueue_assets()
         'cms-nhom-h-header',
         CMS_NHOM_H_URL . 'assets/css/header.css',
         array('cms-nhom-h-style'),
-        '1.0.0'
+        '1.3.0'
     );
 
     // CSS search
@@ -98,15 +98,15 @@ function cms_nhom_h_enqueue_assets()
         'cms-nhom-h-search',
         CMS_NHOM_H_URL . 'assets/css/search.css',
         array('cms-nhom-h-header'),
-        '1.0.0'
+        '1.3.0'
     );
     
     // CSS footer
-        wp_enqueue_style(
+    wp_enqueue_style(
         'cms-nhom-h-footer',
         CMS_NHOM_H_URL . 'assets/css/footer.css',
         array('cms-nhom-h-header'),
-        '1.0.0'
+        '1.3.0'
     );
 
     // JavaScript search
@@ -114,7 +114,7 @@ function cms_nhom_h_enqueue_assets()
         'cms-nhom-h-search',
         CMS_NHOM_H_URL . 'assets/js/search.js',
         array(),
-        '1.0.0',
+        '1.3.0',
         true
     );
 }

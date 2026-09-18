@@ -1,0 +1,182 @@
+/* =========================================
+   MODULE FOOTER
+========================================= */
+
+.module-footer {
+    width: 100%;
+    background-color: #008066;
+    color: #ffffff;
+    padding: 35px 40px 28px;
+    box-sizing: border-box;
+}
+
+.module-footer__container {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   FOOTER COLUMNS
+========================================= */
+
+.module-footer__columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 80px;
+}
+
+.module-footer__column {
+    min-width: 0;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.module-footer__title {
+    margin: 0 0 25px;
+    padding-left: 10px;
+
+    border-left: 3px solid #ffffff;
+
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+
+/* =========================================
+   LINKS
+========================================= */
+
+.module-footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.module-footer__links li {
+    margin-bottom: 10px;
+}
+
+.module-footer__links a {
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: opacity 0.2s ease;
+}
+
+.module-footer__links a:hover {
+    opacity: 0.7;
+}
+
+
+/* =========================================
+   SOCIAL ICONS
+========================================= */
+
+.module-footer__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-top: 55px;
+    margin-bottom: 28px;
+}
+
+.module-footer__social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    transition: opacity 0.2s ease;
+}
+
+.module-footer__social a:hover {
+    opacity: 0.7;
+}
+
+
+/* =========================================
+   COMPANY INFORMATION
+========================================= */
+
+.module-footer__company {
+    max-width: 1000px;
+    margin: 0 auto 15px;
+
+    text-align: center;
+}
+
+.module-footer__company p {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.module-footer__company a {
+    color: #ffffff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   COPYRIGHT
+========================================= */
+
+.module-footer__copyright {
+    text-align: center;
+}
+
+.module-footer__copyright p {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .module-footer {
+        padding: 30px 20px;
+    }
+
+    .module-footer__columns {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .module-footer__social {
+        margin-top: 35px;
+    }
+
+    .module-footer__company p {
+        font-size: 12px;
+    }
+}

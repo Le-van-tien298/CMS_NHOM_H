@@ -32,7 +32,11 @@ function cms_custom_post_excerpt($excerpt, $post = null)
             </div>
             <div class="cms-post-divider"></div>
             <div class="cms-post-info">
-                <h2 class="cms-post-title">' . esc_html($title) . '</h2>
+               <div class="cms-post-title">
+    <a href="' . esc_url(get_permalink($post)) . '">
+        ' . esc_html($title) . '
+    </a>
+</div>
                 <div class="cms-post-excerpt">' . esc_html($excerpt) . '</div>
             </div>
         </div>

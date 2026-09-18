@@ -19,11 +19,31 @@ define('CMS_NHOM_H_URL', plugin_dir_url(__FILE__));
 // Load module
 
 require_once CMS_NHOM_H_PATH . 'includes/module-content.php';
+
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'database.php';
 add_action('wp_footer', 'cms_nhom_h_render_footer');
+function cms_nhom_h_render_detail($content)
+{
+    if (is_single() && in_the_loop() && is_main_query()) {
 
+        $cms_post_content = $content;
+
+        ob_start();
+
+        require CMS_NHOM_H_PATH . 'includes/module-detail.php';
+
+        return ob_get_clean();
+    }
+
+    return $content;
+}
+
+add_filter(
+    'the_content',
+    'cms_nhom_h_render_detail'
+);
 function cms_nhom_h_render_footer()
 {
     require CMS_NHOM_H_PATH . 'includes/module-footer.php';

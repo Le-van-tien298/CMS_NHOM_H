@@ -16,11 +16,17 @@ define('CMS_NHOM_H_PATH', plugin_dir_path(__FILE__));
 define('CMS_NHOM_H_URL', plugin_dir_url(__FILE__));
 
 // Load module
+
 require_once CMS_NHOM_H_PATH . 'includes/module-content.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'database.php';
+add_action('wp_footer', 'cms_nhom_h_render_footer');
 
+function cms_nhom_h_render_footer()
+{
+    require CMS_NHOM_H_PATH . 'includes/module-footer.php';
+}
 // Tạo database khi kích hoạt plugin
 register_activation_hook(
     __FILE__,
@@ -91,6 +97,14 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style(
         'cms-nhom-h-search',
         CMS_NHOM_H_URL . 'assets/css/search.css',
+        array('cms-nhom-h-header'),
+        '1.0.0'
+    );
+    
+    // CSS footer
+        wp_enqueue_style(
+        'cms-nhom-h-footer',
+        CMS_NHOM_H_URL . 'assets/css/footer.css',
         array('cms-nhom-h-header'),
         '1.0.0'
     );

@@ -1,0 +1,194 @@
+/* =========================================
+   MODULE COMMENT
+========================================= */
+
+.cms-comment {
+    width: 100%;
+    max-width: 600px;
+
+    margin: 40px auto;
+
+    background: #dcefea;
+
+    border: 1px solid #4b7f75;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.cms-comment__header {
+    padding: 30px 40px 10px;
+}
+
+.cms-comment__header h2 {
+    margin: 0;
+
+    color: #263746;
+
+    font-size: 32px;
+    font-weight: 400;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+.cms-comment__body {
+    padding: 15px 40px 30px;
+}
+
+
+/* =========================================
+   LOGIN INFORMATION
+========================================= */
+
+.cms-comment__logged-in {
+    margin: 0 0 20px;
+
+    color: #65737e;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.cms-comment__logged-in a {
+    color: #65737e;
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   NOTE
+========================================= */
+
+.cms-comment__note {
+    margin: 0 0 20px;
+
+    color: #65737e;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   LABEL
+========================================= */
+
+.cms-comment__label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #263746;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cms-comment__label .required {
+    color: #c00;
+}
+
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.cms-comment__textarea {
+    display: block;
+
+    width: 100%;
+    min-height: 125px;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border: 1px solid #687681;
+
+    border-radius: 0;
+
+    color: #333;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    resize: vertical;
+
+    outline: none;
+}
+
+.cms-comment__textarea:focus {
+    border-color: #263746;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.cms-comment__submit {
+    margin-top: 20px;
+
+    padding: 12px 25px;
+
+    background: #263746;
+
+    border: none;
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.cms-comment__submit:hover {
+    background: #17242f;
+}
+
+
+/* =========================================
+   HIDE DEFAULT COMMENT FORM ELEMENTS
+========================================= */
+
+.cms-comment .comment-form-comment {
+    margin: 0;
+}
+
+.cms-comment .form-submit {
+    margin: 0;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .cms-comment {
+        width: calc(100% - 30px);
+        margin: 30px 15px;
+    }
+
+    .cms-comment__header {
+        padding: 25px 25px 10px;
+    }
+
+    .cms-comment__body {
+        padding: 15px 25px 25px;
+    }
+
+    .cms-comment__header h2 {
+        font-size: 26px;
+    }
+}

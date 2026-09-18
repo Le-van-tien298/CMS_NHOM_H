@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: CMS NHOM H
  * Description: Plugin bán shop thời trang
@@ -27,6 +28,28 @@ function cms_nhom_h_render_footer()
 {
     require CMS_NHOM_H_PATH . 'includes/module-footer.php';
 }
+// Comment
+add_filter('the_content', 'cms_nhom_h_add_comment_module');
+
+function cms_nhom_h_add_comment_module($content)
+{
+    if (!is_singular()) {
+        return $content;
+    }
+
+    if (!comments_open()) {
+        return $content;
+    }
+
+    ob_start();
+
+    require CMS_NHOM_H_PATH . 'includes/module-comment.php';
+
+    $comment_module = ob_get_clean();
+
+    return $content . $comment_module;
+}
+
 // Tạo database khi kích hoạt plugin
 register_activation_hook(
     __FILE__,
@@ -55,7 +78,7 @@ function cms_nhom_h_add_menu()
 // Trang quản trị plugin
 function cms_nhom_h_admin_page()
 {
-    ?>
+?>
     <div class="wrap">
         <h1>CMS NHOM H - Shop thời trang</h1>
 
@@ -100,14 +123,22 @@ function cms_nhom_h_enqueue_assets()
         array('cms-nhom-h-header'),
         '1.0.0'
     );
-    
+
     // CSS footer
-        wp_enqueue_style(
+    wp_enqueue_style(
         'cms-nhom-h-footer',
         CMS_NHOM_H_URL . 'assets/css/footer.css',
         array('cms-nhom-h-header'),
         '1.0.0'
     );
+    // CSS comment
+    wp_enqueue_style(
+        'cms-nhom-h-comment',
+        CMS_NHOM_H_URL . 'assets/css/comment.css',
+        array('cms-nhom-h-style'),
+        '1.0.0'
+    );
+  
 
     // JavaScript search
     wp_enqueue_script(

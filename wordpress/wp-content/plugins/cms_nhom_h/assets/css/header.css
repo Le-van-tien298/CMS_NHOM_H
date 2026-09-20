@@ -1,0 +1,212 @@
+/* Card Header tổng thể theo mẫu ảnh 1 */
+.site-header-pill {
+    max-width: 1240px;
+    margin: 20px auto 10px auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        position: relative;
+}
+
+.header-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Brand Logo */
+.brand-logo a {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+/* Menu list */
+.header-navigation {
+    flex: 1;
+}
+
+.header-nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 15px;
+}
+
+.header-nav-list li a {
+    text-decoration: none;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+/* Kiểu nút Home xám nhạt như mẫu */
+.header-nav-list li:first-child a {
+    background-color: #f1f3f7;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.header-nav-list li a:hover {
+    color: #2563eb;
+}
+
+/* Nhóm Icons góc phải (Menu, Search, Account) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+        margin-left: auto;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+        background: transparent;
+        border: none;
+        color: #475569;
+        cursor: pointer;
+        font-size: 11px;
+    text-decoration: none;
+    padding: 4px;
+        transition: color 0.2s ease;
+}
+
+.action-btn i {
+    font-size: 18px;
+}
+
+.action-btn:hover {
+    color: #2563eb;
+}
+
+/* --- OFF-CANVAS MENU DRAWER (CÁCH 3) --- */
+
+/* Lớp nền mờ tối màu che trang web */
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.drawer-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Khung trượt chính từ bên phải qua */
+.menu-drawer {
+    position: fixed;
+    top: 0;
+    right: -360px;
+    /* Ban đầu giấu ra ngoài màn hình */
+    width: 320px;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -4px 0 25px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* KHI ĐĂNG NHẬP ADMIN: Né thanh admin bar 32px */
+body.admin-bar .menu-drawer {
+    top: 32px;
+    height: calc(100vh - 32px);
+}
+
+body.admin-bar .drawer-overlay {
+    top: 32px;
+    height: calc(100vh - 32px);
+}
+
+.menu-drawer.is-active {
+    right: 0;
+    /* Trượt vào tầm nhìn */
+}
+
+/* Tiêu đề & nút tắt X của Drawer */
+.drawer-header {
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.drawer-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.btn-close-drawer {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #64748b;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.btn-close-drawer:hover {
+    color: #0f172a;
+}
+
+/* Nội dung danh sách link bên trong Drawer */
+.drawer-body {
+    padding: 16px 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.drawer-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.drawer-nav-list li {
+    margin-bottom: 6px;
+}
+
+.drawer-nav-list li a {
+    display: block;
+    padding: 10px 14px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+.drawer-nav-list li a:hover {
+    background-color: #f1f5f9;
+    color: #2563eb;
+    padding-left: 18px;
+    /* Hiệu ứng nhích nhẹ sang phải khi rê chuột */
+}

@@ -73,4 +73,4 @@ $author = get_the_author_meta(
 
     </div>
 
-</article>
+</article><?php cms_prev_next_posts(); ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: CMS NHOM H
  * Description: Plugin bán shop thời trang
@@ -18,6 +19,7 @@ define('CMS_NHOM_H_URL', plugin_dir_url(__FILE__));
 // Load database & các module
 require_once CMS_NHOM_H_PATH . 'database.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-content.php';
+require_once CMS_NHOM_H_PATH . 'includes/module-prev-next.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 
@@ -118,7 +120,7 @@ function cms_nhom_h_admin_page()
     $hotline = get_option('cms_header_hotline', '0901 234 567');
     $notice = get_option('cms_header_notice', 'Miễn phí giao hàng cho đơn từ 500k!');
     $placeholder = get_option('cms_search_placeholder', 'Tìm kiếm quần áo, phụ kiện thời trang...');
-    ?>
+?>
     <div class="wrap">
         <h1>Quản lý Cấu hình Shop Thời Trang</h1>
         <p>Tùy chỉnh nội dung Header & Tìm kiếm mà không cần can thiệp mã nguồn.</p>
@@ -152,7 +154,7 @@ function cms_nhom_h_admin_page()
             <?php submit_button('Lưu cài đặt', 'primary', 'cms_save_settings'); ?>
         </form>
     </div>
-    <?php
+<?php
 }
 
 /* ==========================================================================
@@ -167,6 +169,6 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/css/search.css', array('cms-nhom-h-header'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-footer', CMS_NHOM_H_URL . 'assets/css/footer.css', array('cms-nhom-h-header'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-comment', CMS_NHOM_H_URL . 'assets/css/comment.css', array('cms-nhom-h-style'), '1.0.0');
-
+    wp_enqueue_style('cms-prev-next',CMS_NHOM_H_URL . 'assets/css/prev-next.css',array(), '1.0');
     wp_enqueue_script('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/js/search.js', array(), '1.3.0', true);
 }

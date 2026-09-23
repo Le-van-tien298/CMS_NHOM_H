@@ -25,7 +25,9 @@ require_once CMS_NHOM_H_PATH . 'includes/module-recent-post.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-archive.php';
+require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';
 add_action('wp_footer', 'cms_nhom_h_render_archive_section');
+
 function cms_nhom_h_render_archive_section()
 {
     if (function_exists('cms_render_archive')) {
@@ -93,16 +95,12 @@ function cms_nhom_h_render_detail($content)
     }
     return $content;
 }
-
-add_filter('the_content', 'cms_nhom_h_add_comment_module');
-function cms_nhom_h_add_comment_module($content)
-{
-    if (!is_singular() || !comments_open()) {
-        return $content;
+add_filter('comments_template', 'cms_nhom_h_override_comments_template');
+function cms_nhom_h_override_comments_template($theme_template) {
+    if (is_singular()) {
+        return CMS_NHOM_H_PATH . 'includes/comments-template.php';   // ← đổi file ở đây
     }
-    ob_start();
-    require CMS_NHOM_H_PATH . 'includes/module-comment.php';
-    return $content . ob_get_clean();
+    return $theme_template;
 }
 
 /* ==========================================================================

@@ -4,8 +4,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+
 /**
- * Hiển thị danh sách bài viết mới nhất
+ * Render Recent Posts
  */
 function cms_nhom_h_render_recent_posts($limit = 3)
 {
@@ -13,13 +14,14 @@ function cms_nhom_h_render_recent_posts($limit = 3)
         'post_type'      => 'post',
         'post_status'    => 'publish',
         'posts_per_page' => $limit,
-        'orderby'         => 'date',
-        'order'           => 'DESC',
+        'orderby'        => 'date',
+        'order'          => 'DESC',
     ]);
 
     if (!$recent_posts->have_posts()) {
         return;
     }
+
 ?>
 
     <section class="cms-recent-posts">
@@ -34,24 +36,25 @@ function cms_nhom_h_render_recent_posts($limit = 3)
                     <div class="cms-recent-date">
 
                         <div class="cms-recent-day">
-                            <?php echo get_the_date('d'); ?>
+                            <?php echo esc_html(get_the_date('d')); ?>
                         </div>
 
                         <div class="cms-recent-month">
-                            <?php echo get_the_date('m'); ?>
+                            <?php echo esc_html(get_the_date('m')); ?>
                         </div>
 
                         <div class="cms-recent-year">
-                            <?php echo get_the_date('y'); ?>
+                            <?php echo esc_html(get_the_date('y')); ?>
                         </div>
 
                     </div>
 
+
                     <!-- Tiêu đề -->
                     <div class="cms-recent-title">
 
-                        <a href="<?php the_permalink(); ?>">
-                            <?php the_title(); ?>
+                        <a href="<?php echo esc_url(get_permalink()); ?>">
+                            <?php echo esc_html(get_the_title()); ?>
                         </a>
 
                     </div>
@@ -62,10 +65,11 @@ function cms_nhom_h_render_recent_posts($limit = 3)
 
         </div>
 
-        <!-- Nút xem tất cả -->
+
+        <!-- Xem tất cả tin tức -->
         <div class="cms-recent-footer">
 
-            <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">
+            <a href="<?php echo esc_url(home_url('/tin-tuc/')); ?>">
                 XEM TẤT CẢ TIN TỨC
             </a>
 

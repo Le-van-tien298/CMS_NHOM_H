@@ -1,7 +1,7 @@
 .cms-post-card {
     list-style: none;
     display: flex;
-    width: 850px;
+    width: 1000px;
     max-width: 100%;
     min-height: 150px;
 
@@ -18,7 +18,59 @@
 li:has(.cms-post-card) {
     list-style: none;
 }
+/* =========================
+   PHẦN ẢNH ĐẠI DIỆN
+========================= */
 
+/* Featured Image */
+.cms-post-image {
+    flex: 0 0 220px;
+    width: 220px;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: contain !important;
+    overflow: hidden;
+    position: relative;
+    background: #ddd;
+    flex-shrink: 0;
+}
+
+.cms-post-image a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+    z-index: 2;
+}
+
+.cms-post-image img.cms-post-thumbnail {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: cover !important;
+    object-position: center !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+}
+
+/* Khi không có ảnh */
+.cms-post-thumbnail-empty {
+    background: #eee;
+}
 /* =========================
    PHẦN NGÀY THÁNG
 ========================= */
@@ -123,7 +175,9 @@ li:has(.cms-post-card) {
     .cms-post-card {
         min-height: auto;
     }
-
+    .cms-post-thumb {
+        width: 90px;
+    }
     .cms-post-date {
         width: 80px;
         padding: 10px;

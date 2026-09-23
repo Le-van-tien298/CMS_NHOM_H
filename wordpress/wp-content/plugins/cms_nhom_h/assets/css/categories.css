@@ -1,0 +1,77 @@
+/* Khung tổng thể bao bọc Card Categories */
+.cms-category-widget {
+    background: #ffffff;
+    max-width: 320px;
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    border: 1px solid #eeeeee;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+/* Tiêu đề "Categories" đậm */
+.cms-category-widget .widget-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+/* Đường gạch hoa văn kẻ sọc xéo ngăn cách dưới tiêu đề */
+.widget-divider-pattern {
+    height: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+    background: repeating-linear-gradient(-45deg,
+            #e2e8f0,
+            #e2e8f0 2px,
+            transparent 2px,
+            transparent 6px);
+}
+
+/* Danh sách Category */
+.category-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Từng mục có vạch phân cách xám mờ bên dưới */
+.category-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.category-item:last-child {
+    border-bottom: none;
+}
+
+/* Chấm tròn màu vàng cam */
+.category-item .bullet-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #f59e0b;
+    /* Màu vàng cam */
+    border-radius: 50%;
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+
+/* Tên link của Category */
+.category-item a {
+    color: #64748b;
+    /* Xám xanh nhẹ */
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.category-item a:hover {
+    color: #2563eb;
+    /* Rê chuột vào đổi màu xanh */
+    padding-left: 4px;
+}

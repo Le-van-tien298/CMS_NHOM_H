@@ -24,6 +24,14 @@ require_once CMS_NHOM_H_PATH . 'includes/module-recent-post.php';
 
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
+require_once CMS_NHOM_H_PATH . 'includes/module-archive.php';
+add_action('wp_footer', 'cms_nhom_h_render_archive_section');
+function cms_nhom_h_render_archive_section()
+{
+    if (function_exists('cms_render_archive')) {
+        cms_render_archive(8);
+    }
+}
 
 /* ==========================================================================
    1. ĐĂNG KÝ VỊ TRÍ MENU TRONG ADMIN (Để quản lý menu kéo-thả)
@@ -184,6 +192,5 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style('cms-nhom-h-footer', CMS_NHOM_H_URL . 'assets/css/footer.css', array('cms-nhom-h-header'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-comment', CMS_NHOM_H_URL . 'assets/css/comment.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_style('cms-prev-next', CMS_NHOM_H_URL . 'assets/css/prev-next.css', array(), '1.0');
-    wp_enqueue_style('cms-recent-post', CMS_NHOM_H_URL . 'assets/css/recent-post.css', [], '1.0');
     wp_enqueue_script('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/js/search.js', array(), '1.3.0', true);
 }

@@ -51,15 +51,11 @@
     transition: all 0.2s ease;
 }
 
-/* Kiểu nút Home xám nhạt như mẫu */
-.header-nav-list li:first-child a {
-    background-color: #f1f3f7;
-    color: #1e293b;
-    font-weight: 600;
-}
-
 .header-nav-list li a:hover {
     color: #2563eb;
+    background-color: #f1f3f7;
+        font-weight: 600;
+        transition: all 0.2s ease;
 }
 
 /* Nhóm Icons góc phải (Menu, Search, Account) */

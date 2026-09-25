@@ -45,7 +45,7 @@ function cms_custom_post_excerpt($excerpt, $post = null)
         }
         return ' <div class="cms-post-card"> 
             <div class="cms-post-image"> 
-                <a href="' . esc_url(get_permalink($post_id)) . '">
+                <a href="' . esc_url(get_permalink($post)) . '">
                 ' . $thumbnail . ' 
             </a> </div>
             <div class="cms-post-date">

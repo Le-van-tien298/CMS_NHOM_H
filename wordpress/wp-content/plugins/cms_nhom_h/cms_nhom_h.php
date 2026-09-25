@@ -25,7 +25,21 @@ require_once CMS_NHOM_H_PATH . 'includes/module-recent-post.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-archive.php';
-require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';
+require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';      
+
+
+
+
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+/**
+ * Load widget PHP
+ */
+require_once CMS_NHOM_H_PATH . 'includes/widget-test-4.php'; 
+
 add_action('wp_footer', 'cms_nhom_h_render_archive_section');
 
 function cms_nhom_h_render_archive_section()
@@ -57,6 +71,27 @@ function cms_nhom_h_display_recent_posts()
 
     cms_nhom_h_render_recent_posts(3);
 }
+
+function my_footer_widget_area() {
+
+    register_sidebar(
+        array(
+            'name'          => 'Widget Trên Footer',
+            'id'            => 'widget-tren-footer',
+            'description'   => 'Widget hiển thị ngay phía trên Footer.',
+            'before_widget' => '<div class="footer-widget-item">',
+            'after_widget'  => '</div>',
+            'before_title'  => '',
+            'after_title'   => '',
+        )
+    );
+
+}
+
+add_action( 'widgets_init', 'my_footer_widget_area' );
+
+
+
 /* ==========================================================================
    2. RENDER HEADER & FOOTER
    ========================================================================== */
@@ -74,6 +109,15 @@ function cms_nhom_h_render_header()
 add_action('wp_footer', 'cms_nhom_h_render_footer');
 function cms_nhom_h_render_footer()
 {
+    if ( is_active_sidebar( 'widget-tren-footer' ) ) {
+
+        echo '<div class="widget-tren-footer">';
+
+        dynamic_sidebar( 'widget-tren-footer' );
+
+        echo '</div>';
+
+    }
     require CMS_NHOM_H_PATH . 'includes/module-footer.php';
 }
 
@@ -193,4 +237,12 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style('cms-prev-next', CMS_NHOM_H_URL . 'assets/css/prev-next.css', array(), '1.0');
     wp_enqueue_style('cms-recent-post', CMS_NHOM_H_URL . 'assets/css/recent-post.css', [], '1.0');
     wp_enqueue_script('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/js/search.js', array(), '1.3.0', true);
+
+     wp_enqueue_style(
+        'widget-test-4',
+        plugin_dir_url( __FILE__ ) . 'assets/css/widget-test-4.css',
+        array(),
+        '1.0.0'
+    );
+   
 }

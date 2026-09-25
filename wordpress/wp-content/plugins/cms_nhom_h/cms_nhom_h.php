@@ -21,11 +21,33 @@ require_once CMS_NHOM_H_PATH . 'database.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-content.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-prev-next.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-recent-post.php';
+require_once CMS_NHOM_H_PATH . 'includes/widget_test_4.php';
 
 require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-archive.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';
+
+function cms_nhom_h_register_widget()
+{
+    register_widget('Widget_Test_4');
+}
+
+add_action('widgets_init', 'cms_nhom_h_register_widget');
+function cms_nhom_h_register_footer_widget()
+{
+    register_sidebar(array(
+        'name'          => 'Widget trước Footer',
+        'id'            => 'cms-before-footer',
+        'description'   => 'Widget hiển thị ngay phía trên Footer',
+        'before_widget' => '<div id="%1$s" class="cms-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>',
+    ));
+}
+
+add_action('widgets_init', 'cms_nhom_h_register_footer_widget');
 add_action('wp_footer', 'cms_nhom_h_render_archive_section');
 
 function cms_nhom_h_render_archive_section()
@@ -72,11 +94,23 @@ function cms_nhom_h_render_header()
 
 // Gắn Footer
 add_action('wp_footer', 'cms_nhom_h_render_footer');
+
 function cms_nhom_h_render_footer()
 {
+    // Widget trước footer
+    if (is_active_sidebar('cms-before-footer')) {
+?>
+
+        <section class="cms-before-footer">
+            <?php dynamic_sidebar('cms-before-footer'); ?>
+        </section>
+
+    <?php
+    }
+
+    // Footer
     require CMS_NHOM_H_PATH . 'includes/module-footer.php';
 }
-
 /* ==========================================================================
    3. XỬ LÝ NỘI DUNG BÀI VIẾT & COMMENT
    ========================================================================== */
@@ -96,7 +130,8 @@ function cms_nhom_h_render_detail($content)
     return $content;
 }
 add_filter('comments_template', 'cms_nhom_h_override_comments_template');
-function cms_nhom_h_override_comments_template($theme_template) {
+function cms_nhom_h_override_comments_template($theme_template)
+{
     if (is_singular()) {
         return CMS_NHOM_H_PATH . 'includes/comments-template.php';   // ← đổi file ở đây
     }
@@ -140,7 +175,7 @@ function cms_nhom_h_admin_page()
     $hotline = get_option('cms_header_hotline', '0901 234 567');
     $notice = get_option('cms_header_notice', 'Miễn phí giao hàng cho đơn từ 500k!');
     $placeholder = get_option('cms_search_placeholder', 'Tìm kiếm quần áo, phụ kiện thời trang...');
-?>
+    ?>
     <div class="wrap">
         <h1>Quản lý Cấu hình Shop Thời Trang</h1>
         <p>Tùy chỉnh nội dung Header & Tìm kiếm mà không cần can thiệp mã nguồn.</p>
@@ -192,5 +227,6 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style('cms-nhom-h-archive', CMS_NHOM_H_URL . 'assets/css/archive.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_style('cms-prev-next', CMS_NHOM_H_URL . 'assets/css/prev-next.css', array(), '1.0');
     wp_enqueue_style('cms-recent-post', CMS_NHOM_H_URL . 'assets/css/recent-post.css', [], '1.0');
+    wp_enqueue_style('widget_test_4', CMS_NHOM_H_URL . 'assets/css/widget.css', array(), '1.0');
     wp_enqueue_script('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/js/search.js', array(), '1.3.0', true);
 }

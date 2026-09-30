@@ -68,5 +68,4 @@ if (!defined('ABSPATH')) exit;
             <p class="cms-comments-list__empty">Chưa có bình luận nào.</p>
         <?php endif; ?>
     </div>
- 
 </div>

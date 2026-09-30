@@ -152,7 +152,7 @@ function wp_authenticate_username_password( $user, $username, $password ) {
 			sprintf(
 				/* translators: %s: User name. */
 				__( '<strong>Error</strong>: The username <strong>%s</strong> is not registered on this site. If you are unsure of your username, try your email address instead.' ),
-				$username
+				esc_html( $username )
 			)
 		);
 	}
@@ -177,7 +177,7 @@ function wp_authenticate_username_password( $user, $username, $password ) {
 			sprintf(
 				/* translators: %s: User name. */
 				__( '<strong>Error</strong>: The password you entered for the username %s is incorrect.' ),
-				'<strong>' . $username . '</strong>'
+				'<strong>' . esc_html( $username ) . '</strong>'
 			) .
 			' <a href="' . wp_lostpassword_url() . '">' .
 			__( 'Lost your password?' ) .
@@ -249,7 +249,7 @@ function wp_authenticate_email_password( $user, $email, $password ) {
 			sprintf(
 				/* translators: %s: Email address. */
 				__( '<strong>Error</strong>: The password you entered for the email address %s is incorrect.' ),
-				'<strong>' . $email . '</strong>'
+				'<strong>' . esc_html( $email ) . '</strong>'
 			) .
 			' <a href="' . wp_lostpassword_url() . '">' .
 			__( 'Lost your password?' ) .
@@ -1854,15 +1854,10 @@ function update_user_caches( $user ) {
  *
  * @since 3.0.0
  * @since 4.4.0 'clean_user_cache' action was added.
- * @since 5.8.0 Refreshes the global user instance if cleaning the user cache for the current user.
- *
- * @global WP_User $current_user The current user object which holds the user data.
  *
  * @param WP_User|int $user User object or ID to be cleaned from the cache
  */
 function clean_user_cache( $user ) {
-	global $current_user;
-
 	if ( is_numeric( $user ) ) {
 		$user = new WP_User( $user );
 	}
@@ -1885,13 +1880,6 @@ function clean_user_cache( $user ) {
 	 * @param WP_User $user    User object.
 	 */
 	do_action( 'clean_user_cache', $user->ID, $user );
-
-	// Refresh the global user instance if the cleaning current user.
-	if ( get_current_user_id() === (int) $user->ID ) {
-		$user_id      = (int) $user->ID;
-		$current_user = null;
-		wp_set_current_user( $user_id, '' );
-	}
 }
 
 /**
@@ -3325,7 +3313,7 @@ function register_new_user( $user_login, $user_email ) {
 			sprintf(
 				/* translators: %s: Link to the login page. */
 				__( '<strong>Error:</strong> This email address is already registered. <a href="%s">Log in</a> with this address or choose another one.' ),
-				wp_login_url()
+				esc_url( wp_login_url() )
 			)
 		);
 	}
@@ -3373,7 +3361,7 @@ function register_new_user( $user_login, $user_email ) {
 			sprintf(
 				/* translators: %s: Admin email address. */
 				__( '<strong>Error</strong>: Could not register you&hellip; please contact the <a href="mailto:%s">site admin</a>!' ),
-				get_option( 'admin_email' )
+				esc_attr( get_option( 'admin_email' ) )
 			)
 		);
 		return $errors;
@@ -3596,18 +3584,26 @@ function _wp_get_current_user() {
  *
  * @since 3.0.0
  * @since 4.9.0 This function was moved from wp-admin/includes/ms.php so it's no longer Multisite specific.
+ * @since 7.0.3 Added the `$user_id` parameter, which is sent with the `personal_options_update` action.
+ *
+ * @param int $user_id Optional. The ID of the user whose email is being changed. Defaults to `$_POST['user_id']` if set, otherwise 0.
  *
  * @global WP_Error $errors WP_Error object.
  */
-function send_confirmation_on_profile_email() {
+function send_confirmation_on_profile_email( $user_id = 0 ) {
 	global $errors;
+
+	// Maintain backward compatibility for those relying on a check based on $_POST['user_id'].
+	if ( ! $user_id && isset( $_POST['user_id'] ) ) {
+		$user_id = (int) $_POST['user_id'];
+	}
 
 	$current_user = wp_get_current_user();
 	if ( ! is_object( $errors ) ) {
 		$errors = new WP_Error();
 	}
 
-	if ( $current_user->ID != $_POST['user_id'] ) {
+	if ( 0 === $current_user->ID || $current_user->ID !== (int) $user_id ) {
 		return false;
 	}
 
@@ -3621,6 +3617,7 @@ function send_confirmation_on_profile_email() {
 				)
 			);
 
+			$_POST['email'] = addslashes( $current_user->user_email );
 			return;
 		}
 
@@ -3634,6 +3631,7 @@ function send_confirmation_on_profile_email() {
 			);
 			delete_user_meta( $current_user->ID, '_new_email' );
 
+			$_POST['email'] = addslashes( $current_user->user_email );
 			return;
 		}
 

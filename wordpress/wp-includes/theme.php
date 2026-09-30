@@ -1459,6 +1459,7 @@ function get_uploaded_header_images() {
  * Gets the header image data.
  *
  * @since 3.4.0
+ * @since 7.1.1 The `width` and `height` are cast to non-negative integers.
  *
  * @global array $_wp_default_headers
  *
@@ -1497,7 +1498,14 @@ function get_custom_header() {
 		'height'        => get_theme_support( 'custom-header', 'height' ),
 		'video'         => get_theme_support( 'custom-header', 'video' ),
 	);
-	return (object) wp_parse_args( $data, $default );
+
+	if ( ! is_array( $data ) && ! is_object( $data ) ) {
+		$data = array();
+	}
+	$header         = (object) wp_parse_args( $data, $default );
+	$header->width  = absint( $header->width );
+	$header->height = absint( $header->height );
+	return $header;
 }
 
 /**
@@ -3801,7 +3809,7 @@ function _wp_keep_alive_customize_changeset_dependent_auto_drafts( $new_status, 
  * See {@see 'setup_theme'}.
  *
  * @since 5.5.0
- * @since 6.1.0 The `block-templates` feature was added.
+ * @since 6.0.1 The `block-templates` feature was added.
  */
 function create_initial_theme_features() {
 	register_theme_feature(

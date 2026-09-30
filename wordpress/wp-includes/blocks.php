@@ -286,6 +286,7 @@ function register_block_type_from_metadata( $file_or_folder, $args = array() ) {
 		'title'           => 'title',
 		'category'        => 'category',
 		'parent'          => 'parent',
+		'ancestor'        => 'ancestor',
 		'icon'            => 'icon',
 		'description'     => 'description',
 		'keywords'        => 'keywords',
@@ -646,6 +647,10 @@ function serialize_blocks( $blocks ) {
 function filter_block_content( $text, $allowed_html = 'post', $allowed_protocols = array() ) {
 	$result = '';
 
+	if ( false !== strpos( $text, '<!--' ) && false !== strpos( $text, '--->' ) ) {
+		$text = preg_replace_callback( '%<!--(.*?)--->%', '_filter_block_content_callback', $text );
+	}
+
 	$blocks = parse_blocks( $text );
 	foreach ( $blocks as $block ) {
 		$block   = filter_block_kses( $block, $allowed_html, $allowed_protocols );
@@ -653,6 +658,19 @@ function filter_block_content( $text, $allowed_html = 'post', $allowed_protocols
 	}
 
 	return $result;
+}
+
+/**
+ * Callback used for regular expression replacement in filter_block_content().
+ *
+ * @private
+ * @since 6.2.1
+ *
+ * @param array $matches Array of preg_replace_callback matches.
+ * @return string Replacement string.
+ */
+function _filter_block_content_callback( $matches ) {
+	return '<!--' . rtrim( $matches[1], '-' ) . '-->';
 }
 
 /**
@@ -669,7 +687,7 @@ function filter_block_content( $text, $allowed_html = 'post', $allowed_protocols
  * @return array The filtered and sanitized block object result.
  */
 function filter_block_kses( $block, $allowed_html, $allowed_protocols = array() ) {
-	$block['attrs'] = filter_block_kses_value( $block['attrs'], $allowed_html, $allowed_protocols );
+	$block['attrs'] = filter_block_kses_value( $block['attrs'], $allowed_html, $allowed_protocols, $block );
 
 	if ( is_array( $block['innerBlocks'] ) ) {
 		foreach ( $block['innerBlocks'] as $i => $inner_block ) {
@@ -685,19 +703,25 @@ function filter_block_kses( $block, $allowed_html, $allowed_protocols = array() 
  * HTML.
  *
  * @since 5.3.1
+ * @since 6.5.5 Added the `$block_context` parameter.
  *
  * @param string[]|string $value             The attribute value to filter.
  * @param array[]|string  $allowed_html      An array of allowed HTML elements
  *                                           and attributes, or a context name
  *                                           such as 'post'.
  * @param string[]        $allowed_protocols Array of allowed URL protocols.
+ * @param array           $block_context     Optional. The block the attribute belongs to, in parsed block array format.
  * @return string[]|string The filtered and sanitized result.
  */
-function filter_block_kses_value( $value, $allowed_html, $allowed_protocols = array() ) {
+function filter_block_kses_value( $value, $allowed_html, $allowed_protocols = array(), $block_context = null ) {
 	if ( is_array( $value ) ) {
 		foreach ( $value as $key => $inner_value ) {
-			$filtered_key   = filter_block_kses_value( $key, $allowed_html, $allowed_protocols );
-			$filtered_value = filter_block_kses_value( $inner_value, $allowed_html, $allowed_protocols );
+			$filtered_key   = filter_block_kses_value( $key, $allowed_html, $allowed_protocols, $block_context );
+			$filtered_value = filter_block_kses_value( $inner_value, $allowed_html, $allowed_protocols, $block_context );
+
+			if ( isset( $block_context['blockName'] ) && 'core/template-part' === $block_context['blockName'] ) {
+				$filtered_value = filter_block_core_template_part_attributes( $filtered_value, $filtered_key, $allowed_html );
+			}
 
 			if ( $filtered_key !== $key ) {
 				unset( $value[ $key ] );
@@ -710,6 +734,28 @@ function filter_block_kses_value( $value, $allowed_html, $allowed_protocols = ar
 	}
 
 	return $value;
+}
+
+/**
+ * Sanitizes the value of the Template Part block's `tagName` attribute.
+ *
+ * @since 6.5.5
+ *
+ * @param string          $attribute_value   The attribute value to filter.
+ * @param string          $attribute_name    The attribute name.
+ * @param array[]|string  $allowed_html      An array of allowed HTML elements and attributes,
+ *                                           or a context name such as 'post'. See wp_kses_allowed_html()
+ *                                           for the list of accepted context names.
+ * @return string The sanitized attribute value.
+ */
+function filter_block_core_template_part_attributes( $attribute_value, $attribute_name, $allowed_html ) {
+	if ( empty( $attribute_value ) || 'tagName' !== $attribute_name ) {
+		return $attribute_value;
+	}
+	if ( ! is_array( $allowed_html ) ) {
+		$allowed_html = wp_kses_allowed_html( $allowed_html );
+	}
+	return isset( $allowed_html[ $attribute_value ] ) ? $attribute_value : '';
 }
 
 /**

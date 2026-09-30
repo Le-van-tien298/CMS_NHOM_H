@@ -9,19 +9,23 @@ function cms_nhom_h_render_categories_box()
         'order' => 'ASC',
         'hide_empty' => 0, // 0: Hiện cả danh mục chưa có bài; 1: Chỉ hiện mục đã có bài
     ));
+    $filtered = array();
+    foreach ($categories as $cat) {
+        if ($cat->slug !== 'uncategorized') {
+            $filtered[] = $cat;
+        }
+    }
+    if (empty($filtered) && !empty($categories)) {
+        $filtered = $categories;
+    }
     ?>
     <div class="cms-category-widget">
         <h3 class="widget-title">Categories</h3>
         <div class="widget-divider-pattern"></div>
 
         <ul class="category-list">
-            <?php if (!empty($categories)): ?>
-                <?php foreach ($categories as $cat):
-                    // Bỏ qua category mặc định "Uncategorized" nếu không thích
-                    if ($cat->slug === 'uncategorized')
-                        continue;
-
-                    // Lấy link dẫn tới trang lọc bài viết của category này
+            <?php if (!empty($filtered)): ?>
+                <?php foreach ($filtered as $cat):
                     $category_link = get_category_link($cat->term_id);
                     ?>
                     <li class="category-item">
@@ -32,7 +36,7 @@ function cms_nhom_h_render_categories_box()
                     </li>
                 <?php endforeach; ?>
             <?php else: ?>
-                <li>Chưa có chuyên mục nào.</li>
+                <li class="category-item">Chưa có chuyên mục nào.</li>
             <?php endif; ?>
         </ul>
     </div>

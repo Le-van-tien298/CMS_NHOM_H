@@ -49,15 +49,7 @@ function cms_nhom_h_register_menus()
         'cms_sidebar_menu' => 'Menu Mở Rộng (... Menu Drawer)',
     ));
 }
-// add_action('wp_body_open', 'cms_nhom_h_display_recent_posts');
-// function cms_nhom_h_display_recent_posts()
-// {
-//     if (!is_single()) {
-//         return;
-//     }
-    
-//     cms_nhom_h_render_recent_posts(3);
-// }
+
 /* ==========================================================================
    2. RENDER HEADER & FOOTER
    ========================================================================== */

@@ -26,7 +26,7 @@ require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-archive.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';
-
+require_once CMS_NHOM_H_PATH . 'includes/module-categories.php';
 add_action('wp_footer', 'cms_nhom_h_render_archive_section');
 
 function cms_nhom_h_render_archive_section()
@@ -49,15 +49,15 @@ function cms_nhom_h_register_menus()
         'cms_sidebar_menu' => 'Menu Mở Rộng (... Menu Drawer)',
     ));
 }
-add_action('wp_footer', 'cms_nhom_h_display_recent_posts');
-function cms_nhom_h_display_recent_posts()
-{
-    if (!is_home() && !is_front_page() && !is_archive()) {
-        return;
-    }
-
-    cms_nhom_h_render_recent_posts(3);
-}
+// add_action('wp_body_open', 'cms_nhom_h_display_recent_posts');
+// function cms_nhom_h_display_recent_posts()
+// {
+//     if (!is_single()) {
+//         return;
+//     }
+    
+//     cms_nhom_h_render_recent_posts(3);
+// }
 /* ==========================================================================
    2. RENDER HEADER & FOOTER
    ========================================================================== */
@@ -70,14 +70,6 @@ function cms_nhom_h_render_header()
         cms_render_module_header();
     }
 }
-
-   add_action('wp_footer', 'cms_nhom_h_display_comments');
-   function cms_nhom_h_display_comments()
-   {
-       if (function_exists('cms_nhom_h_render_comments')) {
-           cms_nhom_h_render_comments();
-       }
-   }
 
 // Gắn Footer
 add_action('wp_footer', 'cms_nhom_h_render_footer');
@@ -105,8 +97,7 @@ function cms_nhom_h_render_detail($content)
     return $content;
 }
 add_filter('comments_template', 'cms_nhom_h_override_comments_template');
-function cms_nhom_h_override_comments_template($theme_template)
-{
+function cms_nhom_h_override_comments_template($theme_template) {
     if (is_singular()) {
         return CMS_NHOM_H_PATH . 'includes/comments-template.php';   // ← đổi file ở đây
     }
@@ -194,7 +185,7 @@ add_action('wp_enqueue_scripts', 'cms_nhom_h_enqueue_assets');
 function cms_nhom_h_enqueue_assets()
 {
     wp_enqueue_style('font-awesome-6', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1');
-    wp_enqueue_style('cms-nhom-h-style', CMS_NHOM_H_URL . 'assets/css/style.css', array(), '1.0.5');
+    wp_enqueue_style('cms-nhom-h-style', CMS_NHOM_H_URL . 'assets/css/style.css', array(), '1.0.6');
     wp_enqueue_style('cms-nhom-h-header', CMS_NHOM_H_URL . 'assets/css/header.css', array('cms-nhom-h-style'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/css/search.css', array('cms-nhom-h-header'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-footer', CMS_NHOM_H_URL . 'assets/css/footer.css', array('cms-nhom-h-header'), '1.3.0');
@@ -202,5 +193,6 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style('cms-nhom-h-archive', CMS_NHOM_H_URL . 'assets/css/archive.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_style('cms-prev-next', CMS_NHOM_H_URL . 'assets/css/prev-next.css', array(), '1.0');
     wp_enqueue_style('cms-recent-post', CMS_NHOM_H_URL . 'assets/css/recent-post.css', [], '1.0');
+    wp_enqueue_style('cms-categories', CMS_NHOM_H_URL . 'assets/css/categories.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_script('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/js/search.js', array(), '1.3.0', true);
 }

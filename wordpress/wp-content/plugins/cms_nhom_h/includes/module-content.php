@@ -23,16 +23,42 @@ function cms_custom_post_excerpt($excerpt, $post = null)
                 '...'
             );
         }
+        // Lấy hình đầu tiên trong nội dung bài viết
+        $thumbnail_url = '';
 
-        return '
-        <div class="cms-post-card">
+        if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/i', $post->post_content, $matches)) {
+            $thumbnail_url = $matches[1];
+        }
+
+        if ($thumbnail_url) {
+            $thumbnail = '
+        <img
+            src="' . esc_url($thumbnail_url) . '"
+            alt="' . esc_attr($title) . '"
+            class="cms-post-thumbnail"
+        >
+    ';
+        } else {
+            $thumbnail = '
+        <div class="cms-post-thumbnail-empty"></div>
+    ';
+        }
+        return ' <div class="cms-post-card"> 
+            <div class="cms-post-image"> 
+                <a href="' . esc_url(get_permalink($post)) . '">
+                ' . $thumbnail . ' 
+            </a> </div>
             <div class="cms-post-date">
                 <span class="cms-day">' . esc_html($day) . '</span>
                 <span class="cms-month">THÁNG ' . esc_html($month) . '</span>
             </div>
             <div class="cms-post-divider"></div>
             <div class="cms-post-info">
-                <h2 class="cms-post-title">' . esc_html($title) . '</h2>
+                <div class="cms-post-title">
+                        <a href="' . esc_url(get_permalink($post)) . '">
+                            ' . esc_html($title) . '
+                        </a>
+                    </div>
                 <div class="cms-post-excerpt">' . esc_html($excerpt) . '</div>
             </div>
         </div>

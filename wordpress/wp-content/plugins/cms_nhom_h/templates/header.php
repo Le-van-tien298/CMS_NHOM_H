@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 
         <!-- Logo -->
         <a class="cms-header-logo" href="<?php echo esc_url(home_url('/')); ?>">
-            Group C
+            Nhom H
         </a>
 
         <!-- Home -->

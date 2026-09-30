@@ -1,0 +1,180 @@
+
+/* =========================================
+   RECENT POSTS
+========================================= */
+
+.cms-recent-posts {
+    width: 100%;
+    max-width: 630px;
+    margin: 40px auto;
+    background: #55b9bc;
+    color: #fff;
+}
+
+
+/* =========================================
+   DANH SÁCH BÀI VIẾT
+========================================= */
+
+.cms-recent-posts-list {
+    padding: 25px 30px;
+}
+
+
+/* =========================================
+   TỪNG BÀI VIẾT
+========================================= */
+
+.cms-recent-post {
+    display: flex;
+    align-items: center;
+
+    min-height: 58px;
+    margin-bottom: 10px;
+}
+
+.cms-recent-post:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   NGÀY THÁNG
+========================================= */
+
+.cms-recent-date {
+    position: relative;
+
+    width: 95px;
+    min-width: 95px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+
+    font-family: Georgia, serif;
+}
+
+
+/* Ngày */
+
+.cms-recent-day {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 30px;
+
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}
+
+
+/* Tháng */
+
+.cms-recent-month {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 30px;
+
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}
+
+
+/* Đường line giữa ngày và tháng */
+
+.cms-recent-month::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: -1px;
+
+    width: 30px;
+    height: 1px;
+
+    background: rgba(255, 255, 255, 0.9);
+}
+
+
+/* Năm */
+
+.cms-recent-year {
+    position: absolute;
+
+    left: 35px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 17px;
+    line-height: 20px;
+}
+
+
+/* =========================================
+   TIÊU ĐỀ
+========================================= */
+
+.cms-recent-title {
+    flex: 1;
+
+    padding-left: 25px;
+}
+
+.cms-recent-title a {
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    line-height: 1.5;
+
+    transition: text-decoration 0.2s ease;
+}
+
+
+/* Hover underline */
+
+.cms-recent-title a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   FOOTER - XEM TẤT CẢ
+========================================= */
+
+.cms-recent-footer {
+    width: 100%;
+
+    padding: 18px 20px;
+
+    box-sizing: border-box;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    text-align: center;
+}
+
+.cms-recent-footer a {
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.cms-recent-footer a:hover {
+    text-decoration: underline;
+}
+

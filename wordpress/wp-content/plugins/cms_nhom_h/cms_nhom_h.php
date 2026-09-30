@@ -27,6 +27,7 @@ require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-archive.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-categories.php';
+require_once CMS_NHOM_H_PATH . 'includes/module-latest-post.php';
 add_action('wp_footer', 'cms_nhom_h_render_archive_section');
 
 function cms_nhom_h_render_archive_section()
@@ -186,5 +187,6 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style('cms-prev-next', CMS_NHOM_H_URL . 'assets/css/prev-next.css', array(), '1.0');
     wp_enqueue_style('cms-recent-post', CMS_NHOM_H_URL . 'assets/css/recent-post.css', [], '1.0');
     wp_enqueue_style('cms-categories', CMS_NHOM_H_URL . 'assets/css/categories.css', array('cms-nhom-h-style'), '1.0.0');
+    wp_enqueue_style('cms-latest-post', CMS_NHOM_H_URL . 'assets/css/latest-post.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_script('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/js/search.js', array(), '1.3.0', true);
 }

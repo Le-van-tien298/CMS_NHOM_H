@@ -35,9 +35,6 @@ function render_custom_search_dropdown()
 // 3. CHẶN GIAO DIỆN THỪA CỦA THEME & CHỈ RENDER KẾT QUẢ CỦA PLUGIN
 add_action('template_redirect', 'cms_handle_search_render_clean');
 
-// CHẶN GIAO DIỆN THỪA CỦA THEME & RENDER KẾT QUẢ ĐỒNG BỘ TRANG CHỦ
-add_action('template_redirect', 'cms_handle_search_render_clean');
-
 function cms_handle_search_render_clean()
 {
     if (isset($_GET['s']) && !empty(trim($_GET['s'])) && !is_admin()) {
@@ -57,6 +54,7 @@ function cms_handle_search_render_clean()
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Tìm kiếm: <?php echo esc_html($keyword); ?></title>
                     <?php wp_head(); ?>
+                    <link rel="stylesheet" href="<?php echo CMS_NHOM_H_URL . 'assets/css/latest-post.css?ver=1.0.0'; ?>">
                     <style>
                         /* ÉP CSS TRỰC TIẾP ĐỂ KHÔNG BỊ MẤT STYLE */
                         body {
@@ -216,6 +214,20 @@ function cms_handle_search_render_clean()
                                     </div>
                             <?php endif; ?>
                         </div>
+
+                        <!-- KHỐI LATEST POSTS / LATEST NEWS DƯỚI KẾT QUẢ TÌM KIẾM -->
+                        <?php
+                        if (!function_exists('cms_nhom_h_render_latest_posts')) {
+                            $latest_file = dirname(__FILE__) . '/module-latest-post.php';
+                            if (file_exists($latest_file)) {
+                                require_once $latest_file;
+                            }
+                        }
+
+                        if (function_exists('cms_nhom_h_render_latest_posts')) {
+                            cms_nhom_h_render_latest_posts(3, 'Latest News');
+                        }
+                        ?>
                     </main>
 
                     <?php

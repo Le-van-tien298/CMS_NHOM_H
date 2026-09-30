@@ -264,11 +264,22 @@ function _get_block_template_file( $template_type, $slug ) {
 	);
 	foreach ( $themes as $theme_slug => $theme_dir ) {
 		$template_base_paths = get_block_theme_folders( $theme_slug );
-		$file_path           = $theme_dir . '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
-		if ( file_exists( $file_path ) ) {
+		$template_dir        = $theme_dir . '/' . $template_base_paths[ $template_type ];
+		$file_path           = $template_dir . '/' . $slug . '.html';
+		$template_file       = realpath( $file_path );
+		$template_root       = realpath( $template_dir );
+
+		if (
+			false !== $template_file &&
+			false !== $template_root &&
+			str_starts_with(
+				wp_normalize_path( $template_file ),
+				trailingslashit( wp_normalize_path( $template_root ) )
+			)
+		) {
 			$new_template_item = array(
 				'slug'  => $slug,
-				'path'  => $file_path,
+				'path'  => $template_file,
 				'theme' => $theme_slug,
 				'type'  => $template_type,
 			);
@@ -705,7 +716,7 @@ function get_block_templates( $query = array(), $template_type = 'wp_template' )
 
 			$is_not_custom   = false === array_search(
 				wp_get_theme()->get_stylesheet() . '//' . $template_file['slug'],
-				array_column( $query_result, 'id' ),
+				wp_list_pluck( $query_result, 'id' ),
 				true
 			);
 			$fits_slug_query =

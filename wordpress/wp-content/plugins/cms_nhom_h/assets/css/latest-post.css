@@ -1,0 +1,146 @@
+/* ==========================================================================
+   LATEST POSTS / LATEST NEWS - TIMELINE STYLE
+   ========================================================================== */
+
+.cms-latest-news-section {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    padding: 35px 40px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Tiêu đề "Latest News" */
+.cms-latest-news-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 28px 0;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+}
+
+/* Danh sách Timeline */
+.cms-timeline-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* Từng mục Timeline */
+.cms-timeline-item {
+    position: relative;
+    padding-left: 38px;
+    padding-bottom: 28px;
+}
+
+/* Đường kẻ dọc xám kết nối giữa các node */
+.cms-timeline-item::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 9px;
+    bottom: 0;
+    width: 2px;
+    background-color: #cbd5e1;
+    z-index: 1;
+}
+
+/* Mục cuối cùng: vạch kẻ kéo dài đến gần hết phần mô tả giống ảnh mẫu */
+.cms-timeline-item:last-child {
+    padding-bottom: 10px;
+}
+
+.cms-timeline-item:last-child::before {
+    bottom: 12px;
+}
+
+/* Vòng tròn rỗng viền xanh (Node) */
+.cms-timeline-node {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3.5px solid #29b6f6;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    z-index: 2;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.cms-timeline-item:hover .cms-timeline-node {
+    transform: scale(1.15);
+    border-color: #0284c7;
+}
+
+/* Header hàng đầu: Tiêu đề bên trái - Ngày tháng bên phải */
+.cms-timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+/* Tiêu đề bài viết màu xanh */
+.cms-timeline-post-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.45;
+    flex: 1;
+}
+
+.cms-timeline-post-title a {
+    color: #0284c7;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.cms-timeline-post-title a:hover {
+    color: #0369a1;
+    text-decoration: underline;
+}
+
+/* Ngày tháng bên phải màu xanh */
+.cms-timeline-date {
+    font-size: 14px;
+    color: #0284c7;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Đoạn trích mô tả tóm tắt bên dưới */
+.cms-timeline-excerpt {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #4b5563;
+    margin: 0;
+    word-break: break-word;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 640px) {
+    .cms-latest-news-section {
+        padding: 25px 20px;
+        margin-top: 25px;
+    }
+
+    .cms-timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .cms-timeline-date {
+        font-size: 13px;
+        color: #64748b;
+    }
+}

@@ -19,58 +19,72 @@ $author = get_the_author_meta(
 
 ?>
 
-<article class="cms-detail">
+<div class="cms-detail-layout">
+    <aside class="cms-detail-categories">
+        <!-- gọi module categories của bạn ở đây -->
+         categories
+    </aside>
+    <!-- CỘT TRÁI: DETAIL -->
+    <article class="cms-detail">
 
-    <!-- HEADER -->
-    <div class="cms-detail-header">
+        <!-- HEADER -->
+        <div class="cms-detail-header">
 
-        <h1 class="cms-detail-title">
-            <?php echo esc_html($title); ?>
-        </h1>
+            <h1 class="cms-detail-title">
+                <?php echo esc_html($title); ?>
+            </h1>
 
-        <!-- DATE -->
-        <div class="cms-detail-date">
+            <!-- DATE -->
+            <div class="cms-detail-date">
 
-            <div class="cms-date-left">
-                <span class="cms-detail-day">
-                    <?php echo esc_html($day); ?>
-                </span>
+                <div class="cms-date-left">
+                    <span class="cms-detail-day">
+                        <?php echo esc_html($day); ?>
+                    </span>
 
-                <span class="cms-detail-month">
-                    <?php echo esc_html($month); ?>
-                </span>
-            </div>
+                    <span class="cms-detail-month">
+                        <?php echo esc_html($month); ?>
+                    </span>
+                </div>
 
-            <div class="cms-date-divider"></div>
+                <div class="cms-date-divider"></div>
 
-            <div class="cms-date-right">
-                <span class="cms-detail-year">
-                    20<?php echo esc_html($year); ?>
-                </span>
+                <div class="cms-date-right">
+                    <span class="cms-detail-year">
+                        20<?php echo esc_html($year); ?>
+                    </span>
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+        <!-- LINE -->
+        <div class="cms-detail-line"></div>
 
+        <!-- POST CONTENT -->
+        <div class="cms-detail-content">
 
-    <!-- LINE -->
-    <div class="cms-detail-line"></div>
+            <?php echo $cms_post_content; ?>
 
+        </div>
 
-    <!-- POST CONTENT -->
-    <div class="cms-detail-content">
+        <!-- AUTHOR -->
+        <div class="cms-detail-author">
 
-        <?php echo $cms_post_content; ?>
+            (Theo <?php echo esc_html($author); ?>)
+    
+        </div>
 
-    </div>
+    </article>
 
+    <!-- CỘT PHẢI: SIDEBAR -->
+    <aside class="cms-detail-sidebar">
 
-    <!-- AUTHOR -->
-    <div class="cms-detail-author">
+        <?php cms_nhom_h_render_recent_posts(3); ?>
 
-        (Theo <?php echo esc_html($author); ?>)
+    </aside>
 
-    </div>
+</div>
 
-</article><?php cms_prev_next_posts(); ?>
+<?php cms_prev_next_posts(); ?>

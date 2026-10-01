@@ -89,76 +89,7 @@ function cms_handle_search_render_clean()
                             flex-direction: column;
                             gap: 16px;
                         }
-                        /* KHUNG CARD CHUẨN TDC NHƯ ẢNH MẪU */
-                        .cms-tdc-card {
-                            background: #ffffff;
-                            border: 1px solid #e5e7eb;
-                            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-                            display: flex;
-                            align-items: center;
-                            padding: 24px 30px;
-                            box-sizing: border-box;
-                            transition: all 0.2s ease;
-                        }
-                        .cms-tdc-card:hover {
-                            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-                            transform: translateY(-2px);
-                        }
-                        /* Cột ngày tháng to bên trái */
-                        .cms-tdc-date {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-                            min-width: 90px;
-                            text-align: center;
-                        }
-                        .cms-tdc-date .day-number {
-                            font-size: 46px;
-                            font-weight: 700;
-                            line-height: 1;
-                            color: #111827;
-                            font-family: Georgia, "Times New Roman", serif;
-                        }
-                        .cms-tdc-date .month-text {
-                            font-size: 13px;
-                            font-weight: 600;
-                            color: #6b7280;
-                            margin-top: 6px;
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        }
-                        /* Vạch đứng ngăn cách */
-                        .cms-tdc-divider {
-                            width: 1px;
-                            height: 65px;
-                            background-color: #d1d5db;
-                            margin: 0 30px;
-                            flex-shrink: 0;
-                        }
-                        /* Nội dung tiêu đề & mô tả bên phải */
-                        .cms-tdc-info {
-                            flex: 1;
-                        }
-                        .cms-tdc-title {
-                            margin: 0 0 6px 0;
-                            font-size: 20px;
-                            font-weight: 700;
-                        }
-                        .cms-tdc-title a {
-                            color: #0284c7;
-                            text-decoration: none;
-                        }
-                        .cms-tdc-title a:hover {
-                            text-decoration: underline;
-                        }
-                        .cms-tdc-desc {
-                            font-size: 14px;
-                            color: #6b7280;
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                            margin: 0;
-                        }
+
                         .no-result-box {
                             background: #fff;
                             padding: 40px;
@@ -185,28 +116,10 @@ function cms_handle_search_render_clean()
                         <div class="cms-card-wrapper">
                             <?php if ($search_query->have_posts()): ?>
                                     <?php while ($search_query->have_posts()):
-                                        $search_query->the_post(); ?>
-                                            <div class="cms-tdc-card">
-                                                <!-- Khối ngày tháng số to -->
-                                                <div class="cms-tdc-date">
-                                                    <span class="day-number"><?php echo get_the_date('d'); ?></span>
-                                                    <span class="month-text">THÁNG <?php echo get_the_date('m'); ?></span>
-                                                </div>
-
-                                                <!-- Vạch ngăn cách đứng -->
-                                                <div class="cms-tdc-divider"></div>
-
-                                                <!-- Tiêu đề xanh & chữ mô tả xám in hoa -->
-                                                <div class="cms-tdc-info">
-                                                    <h3 class="cms-tdc-title">
-                                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                                    </h3>
-                                                    <p class="cms-tdc-desc">
-                                                        <?php echo esc_html(wp_trim_words(get_the_excerpt(), 20, '...')); ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                    <?php endwhile;
+                                        $search_query->the_post(); 
+                                        // Gọi module-content thông qua the_excerpt() đã được filter
+                                        echo get_the_excerpt();
+                                    endwhile;
                                     wp_reset_postdata(); ?>
                             <?php else: ?>
                                     <div class="no-result-box">
@@ -231,9 +144,6 @@ function cms_handle_search_render_clean()
                     </main>
 
                     <?php
-                    if (function_exists('cms_nhom_h_render_footer')) {
-                        cms_nhom_h_render_footer();
-                    }
                     wp_footer();
                     ?>
                 </body>

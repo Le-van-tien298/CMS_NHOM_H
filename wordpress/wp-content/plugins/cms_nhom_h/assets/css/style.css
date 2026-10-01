@@ -1,17 +1,16 @@
 .cms-post-card {
     list-style: none;
     display: flex;
-    width: 1000px;
-    max-width: 100%;
+    width: 100%;
     min-height: 150px;
-
+    margin-bottom: 20px;
 
     background: #fff;
     border: 1px solid #e5e5e5;
-    margin-left: 150px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 
     box-sizing: border-box;
+}
     
     
 }

@@ -21,8 +21,7 @@ $author = get_the_author_meta(
 
 <div class="cms-detail-layout">
     <aside class="cms-detail-categories">
-        <!-- gọi module categories của bạn ở đây -->
-         categories
+        <?php cms_nhom_h_render_categories_box(); ?>
     </aside>
     <!-- CỘT TRÁI: DETAIL -->
     <article class="cms-detail">

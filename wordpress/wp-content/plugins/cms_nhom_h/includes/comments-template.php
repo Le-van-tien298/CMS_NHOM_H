@@ -45,27 +45,28 @@ if (!defined('ABSPATH')) exit;
 
 </div>
  <?php
-    // ---------- Danh sách comment đã có ----------
-    $cms_comments = get_comments(array(
-        'post_id' => get_the_ID(),
-        'status'  => 'approve',
-        'order'   => 'DESC',
-    ));
-    ?>
- 
-    <div class="cms-comments-list">
-        <h3 class="cms-comments-list__title">Comments</h3>
- 
-        <?php if (!empty($cms_comments)) : ?>
-            <ul class="cms-comments-list__items">
-                <?php foreach ($cms_comments as $cms_comment) : ?>
-                    <li class="cms-comments-list__item">
-                        <?php echo esc_html($cms_comment->comment_content); ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php else : ?>
-            <p class="cms-comments-list__empty">Chưa có bình luận nào.</p>
-        <?php endif; ?>
-    </div>
-</div>
+// ---------- Danh sách comment mới nhất của bài (module 12) ----------
+$cms_comments = get_comments(array(
+    'post_id' => get_the_ID(),
+    'status'  => 'approve',
+    'number'  => 5,
+    'order'   => 'DESC',
+));
+?>
+<section class="cms-clist">
+    <h3 class="cms-clist__title">Comments</h3>
+
+    <?php if (!empty($cms_comments)) : ?>
+        <ul class="cms-clist__items">
+            <?php foreach ($cms_comments as $cms_comment) : ?>
+                <li class="cms-clist__item">
+                    <a href="<?php echo esc_url(get_comment_link($cms_comment)); ?>">
+                        <?php echo esc_html(wp_trim_words($cms_comment->comment_content, 8, '...')); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else : ?>
+        <p class="cms-clist__empty">Chưa có bình luận nào.</p>
+    <?php endif; ?>
+</section>

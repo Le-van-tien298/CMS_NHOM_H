@@ -40,7 +40,6 @@ function cms_nhom_h_render_archive_section()
 /* ==========================================================================
    1. ĐĂNG KÝ VỊ TRÍ MENU TRONG ADMIN (Để quản lý menu kéo-thả)
    ========================================================================== */
-add_action('after_setup_theme', 'cms_nhom_h_register_menus');
 // cms_nhom_h.php
 add_action('init', 'cms_nhom_h_register_menus');
 function cms_nhom_h_register_menus()
@@ -189,7 +188,6 @@ function cms_nhom_h_enqueue_assets()
     wp_enqueue_style('cms-nhom-h-header', CMS_NHOM_H_URL . 'assets/css/header.css', array('cms-nhom-h-style'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/css/search.css', array('cms-nhom-h-header'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-footer', CMS_NHOM_H_URL . 'assets/css/footer.css', array('cms-nhom-h-header'), '1.4.0');
-    wp_enqueue_style('cms-nhom-h-comment', CMS_NHOM_H_URL . 'assets/css/comment.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_style('cms-nhom-h-archive', CMS_NHOM_H_URL . 'assets/css/archive.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_style('cms-prev-next', CMS_NHOM_H_URL . 'assets/css/prev-next.css', array(), '1.0');
     wp_enqueue_style('cms-recent-post', CMS_NHOM_H_URL . 'assets/css/recent-post.css', [], '1.0');

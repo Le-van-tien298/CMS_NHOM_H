@@ -4,7 +4,7 @@ services:
     image: wordpress:6.0.1-php8.1-apache
     container_name: wordpress_6.0.1
     ports:
-      - "8080:80"
+      - "80:80"
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_NAME: wordpress

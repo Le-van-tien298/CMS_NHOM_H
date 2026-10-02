@@ -97,50 +97,118 @@ function cms_handle_search_render_clean()
                             color: #64748b;
                             border: 1px solid #e5e7eb;
                         }
+                        .cms-search-layout {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 3%;
+                            align-items: flex-start;
+                        }
+                        .cms-search-left { width: 22%; }
+                        .cms-search-center { width: 48%; }
+                        .cms-search-right { width: 24%; }
+                        
+                        .cms-search-comments-wrapper {
+                            background: #fdfdfd;
+                            padding: 20px;
+                            border: 1px solid #eee;
+                        }
+                        .cms-search-comments-title {
+                            font-family: 'Playfair Display', serif;
+                            font-size: 24px;
+                            margin-top: 0;
+                            margin-bottom: 20px;
+                            border-bottom: 1px solid #ddd;
+                            padding-bottom: 10px;
+                        }
+                        .cms-search-pagination {
+                            width: 100%;
+                            margin-top: 30px;
+                            text-align: center;
+                        }
+                        
+                        @media (max-width: 991px) {
+                            .cms-search-layout { gap: 20px; }
+                            .cms-search-left, .cms-search-center, .cms-search-right { width: 100%; }
+                        }
                     </style>
                 </head>
                 <body <?php body_class(); ?>>
-                    <?php
-                    // Header card bo tròn có tìm kiếm
-                    if (function_exists('cms_render_module_header')) {
-                        cms_render_module_header();
-                    }
-                    ?>
+                    <?php wp_body_open(); ?>
 
                     <main class="cms-search-container">
+                        <!-- Vùng 4: Search -->
                         <div class="cms-search-header">
                             <h2>Kết quả tìm kiếm cho: <span>"<?php echo esc_html($keyword); ?>"</span></h2>
                             <p>Tìm thấy <?php echo (int) $search_query->found_posts; ?> bài viết liên quan.</p>
                         </div>
 
-                        <div class="cms-card-wrapper">
-                            <?php if ($search_query->have_posts()): ?>
-                                    <?php while ($search_query->have_posts()):
-                                        $search_query->the_post(); 
-                                        // Gọi module-content thông qua the_excerpt() đã được filter
-                                        echo get_the_excerpt();
-                                    endwhile;
-                                    wp_reset_postdata(); ?>
-                            <?php else: ?>
-                                    <div class="no-result-box">
-                                        <p>Không tìm thấy bài viết nào phù hợp với từ khóa "<?php echo esc_html($keyword); ?>"!</p>
-                                    </div>
-                            <?php endif; ?>
+                        <div class="cms-search-layout">
+                            <!-- Vùng 13 (Cột trái): Page (Pagination) -->
+                            <aside class="cms-search-left">
+                                <div class="cms-search-pagination">
+                                    <?php
+                                    $total_pages = $search_query->max_num_pages;
+                                    if ($total_pages > 1) {
+                                        $current_page = max(1, get_query_var('paged'));
+                                        echo paginate_links(array(
+                                            'base' => get_pagenum_link(1) . '%_%',
+                                            'format' => '&paged=%#%',
+                                            'current' => $current_page,
+                                            'total' => $total_pages,
+                                            'prev_text' => '&laquo; Trước',
+                                            'next_text' => 'Sau &raquo;',
+                                        ));
+                                    }
+                                    wp_reset_postdata();
+                                    ?>
+                                </div>
+                            </aside>
+
+                            <!-- Vùng 5 (Cột giữa): Search result -->
+                            <section class="cms-search-center">
+                                <div class="cms-card-wrapper">
+                                    <?php if ($search_query->have_posts()): ?>
+                                            <?php while ($search_query->have_posts()):
+                                                $search_query->the_post(); 
+                                                // Gọi module-content thông qua the_excerpt() đã được filter
+                                                echo get_the_excerpt();
+                                            endwhile;
+                                            ?>
+                                    <?php else: ?>
+                                            <div class="no-result-box">
+                                                <p>Không tìm thấy bài viết nào phù hợp với từ khóa "<?php echo esc_html($keyword); ?>"!</p>
+                                            </div>
+                                    <?php endif; ?>
+                                </div>
+                            </section>
+
+                            <!-- Vùng 14 (Cột phải): Comment -->
+                            <aside class="cms-search-right">
+                                <div class="cms-search-comments-wrapper">
+                                    <h3 class="cms-search-comments-title">Comments</h3>
+                                    <?php
+                                    if (function_exists('cms_nhom_h_render_comments')) {
+                                        cms_nhom_h_render_comments();
+                                    }
+                                    ?>
+                                </div>
+                            </aside>
+
+                            <!-- Vùng 15 (Dưới cùng): Latest Post -->
+                            <div style="width: 100%; margin-top: 40px;">
+                                <?php
+                                if (!function_exists('cms_nhom_h_render_latest_posts')) {
+                                    $latest_file = dirname(__FILE__) . '/module-latest-post.php';
+                                    if (file_exists($latest_file)) {
+                                        require_once $latest_file;
+                                    }
+                                }
+                                if (function_exists('cms_nhom_h_render_latest_posts')) {
+                                    cms_nhom_h_render_latest_posts(3, 'Latest News');
+                                }
+                                ?>
+                            </div>
                         </div>
-
-                        <!-- KHỐI LATEST POSTS / LATEST NEWS DƯỚI KẾT QUẢ TÌM KIẾM -->
-                        <?php
-                        if (!function_exists('cms_nhom_h_render_latest_posts')) {
-                            $latest_file = dirname(__FILE__) . '/module-latest-post.php';
-                            if (file_exists($latest_file)) {
-                                require_once $latest_file;
-                            }
-                        }
-
-                        if (function_exists('cms_nhom_h_render_latest_posts')) {
-                            cms_nhom_h_render_latest_posts(3, 'Latest News');
-                        }
-                        ?>
                     </main>
 
                     <?php

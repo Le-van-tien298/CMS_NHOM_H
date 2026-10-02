@@ -1,0 +1,117 @@
+/* Module Comments - CMS_NHOM_H (theo hình mẫu "Sau chỉnh sửa") */
+.cms-comments-list {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.cms-comments-list * { box-sizing: border-box; }
+
+/* 1 comment (khối ngoài, chứa hàng avatar+khung và các reply bên dưới) */
+.cms-comments-list .cms-comments-item {
+    display: block;
+    margin: 0 0 12px;
+    padding: 0;
+    background: none;
+    border: 0;
+}
+
+/* Hàng: avatar + khung */
+.cms-comments-list .cms-comments-item__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Avatar xám */
+.cms-comments-list .cms-comments-item__avatar {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    background: #ddd;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.cms-comments-list .cms-comments-item__avatar img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 0;
+    margin: 0;
+}
+
+/* Khung nội dung */
+.cms-comments-list .cms-comments-item__box {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+/* Mũi tên nhỏ chỉ về avatar */
+.cms-comments-list .cms-comments-item__box::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 9px;
+    border: 7px solid transparent;
+    border-left: 0;
+    border-right-color: #ddd;
+}
+.cms-comments-list .cms-comments-item__box::after {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 10px;
+    border: 6px solid transparent;
+    border-left: 0;
+    border-right-color: #f5f5f5;
+}
+
+/* Header: tên */
+.cms-comments-list .cms-comments-item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;
+}
+.cms-comments-list .cms-comments-item__name {
+    font-size: 14px;
+    color: #555;
+}
+.cms-comments-list .cms-comments-item__reply a {
+    font-size: 11px;
+    color: #999;
+    text-decoration: none;
+}
+.cms-comments-list .cms-comments-item__reply a:hover { color: #555; }
+
+/* Nội dung */
+.cms-comments-list .cms-comments-item__body {
+    padding: 8px 12px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: #666;
+}
+.cms-comments-list .cms-comments-item__body p { margin: 0; }
+
+/* Reply thụt vào: comment con nằm BÊN TRONG khối comment cha,
+   nên mỗi cấp lồng thêm sẽ tự thụt thêm 40px */
+.cms-comments-list .cms-comments-item .cms-comments-item {
+    margin: 12px 0 0 40px;
+}
+
+/* Form bình luận bên dưới */
+.cms-comments-list .comment-respond { margin-top: 24px; }
+.cms-comments-list .comment-form textarea { width: 100%; }
+.cms-clist { max-width: 400px; margin: 30px auto; padding: 16px 20px; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.08); font-family: Arial, Helvetica, sans-serif; }
+.cms-clist__title { display: inline-block; margin: 0 0 14px; padding-bottom: 8px; font-size: 14px; font-weight: 400; color: #555; border-bottom: 2px solid #7a9cd1; }
+.cms-clist__items { list-style: none; margin: 0; padding: 0; }
+.cms-clist__item { padding: 8px 0; border-bottom: 1px solid #eee; }
+.cms-clist__item a { color: #5a8fc8; font-weight: 600; font-size: 13px; text-decoration: none; }
+.cms-clist__item a:hover { text-decoration: underline; }
+.cms-clist__empty { margin: 0; font-size: 13px; color: #999; }

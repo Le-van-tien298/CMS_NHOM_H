@@ -35,9 +35,6 @@ function render_custom_search_dropdown()
 // 3. CHẶN GIAO DIỆN THỪA CỦA THEME & CHỈ RENDER KẾT QUẢ CỦA PLUGIN
 add_action('template_redirect', 'cms_handle_search_render_clean');
 
-// CHẶN GIAO DIỆN THỪA CỦA THEME & RENDER KẾT QUẢ ĐỒNG BỘ TRANG CHỦ
-add_action('template_redirect', 'cms_handle_search_render_clean');
-
 function cms_handle_search_render_clean()
 {
     if (isset($_GET['s']) && !empty(trim($_GET['s'])) && !is_admin()) {
@@ -57,6 +54,7 @@ function cms_handle_search_render_clean()
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Tìm kiếm: <?php echo esc_html($keyword); ?></title>
                     <?php wp_head(); ?>
+                    <link rel="stylesheet" href="<?php echo CMS_NHOM_H_URL . 'assets/css/latest-post.css?ver=1.0.0'; ?>">
                     <style>
                         /* ÉP CSS TRỰC TIẾP ĐỂ KHÔNG BỊ MẤT STYLE */
                         body {
@@ -91,76 +89,7 @@ function cms_handle_search_render_clean()
                             flex-direction: column;
                             gap: 16px;
                         }
-                        /* KHUNG CARD CHUẨN TDC NHƯ ẢNH MẪU */
-                        .cms-tdc-card {
-                            background: #ffffff;
-                            border: 1px solid #e5e7eb;
-                            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-                            display: flex;
-                            align-items: center;
-                            padding: 24px 30px;
-                            box-sizing: border-box;
-                            transition: all 0.2s ease;
-                        }
-                        .cms-tdc-card:hover {
-                            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-                            transform: translateY(-2px);
-                        }
-                        /* Cột ngày tháng to bên trái */
-                        .cms-tdc-date {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-                            min-width: 90px;
-                            text-align: center;
-                        }
-                        .cms-tdc-date .day-number {
-                            font-size: 46px;
-                            font-weight: 700;
-                            line-height: 1;
-                            color: #111827;
-                            font-family: Georgia, "Times New Roman", serif;
-                        }
-                        .cms-tdc-date .month-text {
-                            font-size: 13px;
-                            font-weight: 600;
-                            color: #6b7280;
-                            margin-top: 6px;
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        }
-                        /* Vạch đứng ngăn cách */
-                        .cms-tdc-divider {
-                            width: 1px;
-                            height: 65px;
-                            background-color: #d1d5db;
-                            margin: 0 30px;
-                            flex-shrink: 0;
-                        }
-                        /* Nội dung tiêu đề & mô tả bên phải */
-                        .cms-tdc-info {
-                            flex: 1;
-                        }
-                        .cms-tdc-title {
-                            margin: 0 0 6px 0;
-                            font-size: 20px;
-                            font-weight: 700;
-                        }
-                        .cms-tdc-title a {
-                            color: #0284c7;
-                            text-decoration: none;
-                        }
-                        .cms-tdc-title a:hover {
-                            text-decoration: underline;
-                        }
-                        .cms-tdc-desc {
-                            font-size: 14px;
-                            color: #6b7280;
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                            margin: 0;
-                        }
+
                         .no-result-box {
                             background: #fff;
                             padding: 40px;
@@ -168,60 +97,121 @@ function cms_handle_search_render_clean()
                             color: #64748b;
                             border: 1px solid #e5e7eb;
                         }
+                        .cms-search-layout {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 3%;
+                            align-items: flex-start;
+                        }
+                        .cms-search-left { width: 22%; }
+                        .cms-search-center { width: 48%; }
+                        .cms-search-right { width: 24%; }
+                        
+                        .cms-search-comments-wrapper {
+                            background: #fdfdfd;
+                            padding: 20px;
+                            border: 1px solid #eee;
+                        }
+                        .cms-search-comments-title {
+                            font-family: 'Playfair Display', serif;
+                            font-size: 24px;
+                            margin-top: 0;
+                            margin-bottom: 20px;
+                            border-bottom: 1px solid #ddd;
+                            padding-bottom: 10px;
+                        }
+                        .cms-search-pagination {
+                            width: 100%;
+                            margin-top: 30px;
+                            text-align: center;
+                        }
+                        
+                        @media (max-width: 991px) {
+                            .cms-search-layout { gap: 20px; }
+                            .cms-search-left, .cms-search-center, .cms-search-right { width: 100%; }
+                        }
                     </style>
                 </head>
                 <body <?php body_class(); ?>>
-                    <?php
-                    // Header card bo tròn có tìm kiếm
-                    if (function_exists('cms_render_module_header')) {
-                        cms_render_module_header();
-                    }
-                    ?>
+                    <?php wp_body_open(); ?>
 
                     <main class="cms-search-container">
+                        <!-- Vùng 4: Search -->
                         <div class="cms-search-header">
                             <h2>Kết quả tìm kiếm cho: <span>"<?php echo esc_html($keyword); ?>"</span></h2>
                             <p>Tìm thấy <?php echo (int) $search_query->found_posts; ?> bài viết liên quan.</p>
                         </div>
 
-                        <div class="cms-card-wrapper">
-                            <?php if ($search_query->have_posts()): ?>
-                                    <?php while ($search_query->have_posts()):
-                                        $search_query->the_post(); ?>
-                                            <div class="cms-tdc-card">
-                                                <!-- Khối ngày tháng số to -->
-                                                <div class="cms-tdc-date">
-                                                    <span class="day-number"><?php echo get_the_date('d'); ?></span>
-                                                    <span class="month-text">THÁNG <?php echo get_the_date('m'); ?></span>
-                                                </div>
+                        <div class="cms-search-layout">
+                            <!-- Vùng 13 (Cột trái): Page (Pagination) -->
+                            <aside class="cms-search-left">
+                                <div class="cms-search-pagination">
+                                    <?php
+                                    $total_pages = $search_query->max_num_pages;
+                                    if ($total_pages > 1) {
+                                        $current_page = max(1, get_query_var('paged'));
+                                        echo paginate_links(array(
+                                            'base' => get_pagenum_link(1) . '%_%',
+                                            'format' => '&paged=%#%',
+                                            'current' => $current_page,
+                                            'total' => $total_pages,
+                                            'prev_text' => '&laquo; Trước',
+                                            'next_text' => 'Sau &raquo;',
+                                        ));
+                                    }
+                                    wp_reset_postdata();
+                                    ?>
+                                </div>
+                            </aside>
 
-                                                <!-- Vạch ngăn cách đứng -->
-                                                <div class="cms-tdc-divider"></div>
-
-                                                <!-- Tiêu đề xanh & chữ mô tả xám in hoa -->
-                                                <div class="cms-tdc-info">
-                                                    <h3 class="cms-tdc-title">
-                                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                                    </h3>
-                                                    <p class="cms-tdc-desc">
-                                                        <?php echo esc_html(wp_trim_words(get_the_excerpt(), 20, '...')); ?>
-                                                    </p>
-                                                </div>
+                            <!-- Vùng 5 (Cột giữa): Search result -->
+                            <section class="cms-search-center">
+                                <div class="cms-card-wrapper">
+                                    <?php if ($search_query->have_posts()): ?>
+                                            <?php while ($search_query->have_posts()):
+                                                $search_query->the_post(); 
+                                                // Gọi module-content thông qua the_excerpt() đã được filter
+                                                echo get_the_excerpt();
+                                            endwhile;
+                                            ?>
+                                    <?php else: ?>
+                                            <div class="no-result-box">
+                                                <p>Không tìm thấy bài viết nào phù hợp với từ khóa "<?php echo esc_html($keyword); ?>"!</p>
                                             </div>
-                                    <?php endwhile;
-                                    wp_reset_postdata(); ?>
-                            <?php else: ?>
-                                    <div class="no-result-box">
-                                        <p>Không tìm thấy bài viết nào phù hợp với từ khóa "<?php echo esc_html($keyword); ?>"!</p>
-                                    </div>
-                            <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </section>
+
+                            <!-- Vùng 14 (Cột phải): Comment -->
+                            <aside class="cms-search-right">
+                                <div class="cms-search-comments-wrapper">
+                                    <h3 class="cms-search-comments-title">Comments</h3>
+                                    <?php
+                                    if (function_exists('cms_nhom_h_render_comments')) {
+                                        cms_nhom_h_render_comments();
+                                    }
+                                    ?>
+                                </div>
+                            </aside>
+
+                            <!-- Vùng 15 (Dưới cùng): Latest Post -->
+                            <div style="width: 100%; margin-top: 40px;">
+                                <?php
+                                if (!function_exists('cms_nhom_h_render_latest_posts')) {
+                                    $latest_file = dirname(__FILE__) . '/module-latest-post.php';
+                                    if (file_exists($latest_file)) {
+                                        require_once $latest_file;
+                                    }
+                                }
+                                if (function_exists('cms_nhom_h_render_latest_posts')) {
+                                    cms_nhom_h_render_latest_posts(3, 'Latest News');
+                                }
+                                ?>
+                            </div>
                         </div>
                     </main>
 
                     <?php
-                    if (function_exists('cms_nhom_h_render_footer')) {
-                        cms_nhom_h_render_footer();
-                    }
                     wp_footer();
                     ?>
                 </body>

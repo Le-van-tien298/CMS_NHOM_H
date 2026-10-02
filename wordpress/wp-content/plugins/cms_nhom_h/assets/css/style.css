@@ -1,21 +1,21 @@
 .cms-post-card {
     list-style: none;
     display: flex;
-    width: 1000px;
-    max-width: 100%;
+    width: 100%;
     min-height: 150px;
-
+    margin-bottom: 20px;
 
     background: #fff;
     border: 1px solid #e5e5e5;
-    margin-left: 150px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 
     box-sizing: border-box;
-    
-    
 }
+    
+    
+
 li:has(.cms-post-card) {
+    
     list-style: none;
 }
 /* =========================
@@ -200,184 +200,544 @@ li:has(.cms-post-card) {
     }
 }
 
-/*
-detail page
-*/
-/* =========================
-   POST DETAIL
-========================= */
 
-.cms-detail {
+/* ==========================================================================
+   DETAIL PAGE - KHẮC PHỤC GIỚI HẠN CONTAINER CỦA THEME TWENTYTWENTYTWO
+   ========================================================================== */
+
+/* Mở rộng các container cha của theme để không bị bóp nghẹt ở mức 650px */
+body.single .entry-content,
+body.single .wp-block-post-content,
+body.single main.wp-block-group {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body.single .entry-content > :where(:not(.alignleft):not(.alignright)),
+body.single .wp-block-post-content > :where(:not(.alignleft):not(.alignright)) {
+    max-width: 100% !important;
+}
+
+/* Ẩn tiêu đề bài viết trùng lặp ở ngoài của theme TwentyTwentyTwo */
+body.single main > .wp-block-group:first-child,
+body.single .alignwide.wp-block-post-title,
+body.single main > div:has(.wp-block-post-title) {
+    display: none !important;
+}
+
+/* Spacer giữa header và content */
+body.single main > .wp-block-spacer:first-of-type {
+    display: none !important;
+}
+
+/* Căn chỉnh khu vực Comments và Terms ở dưới cùng */
+body.single .wp-block-post-comments,
+body.single .wp-container-9 {
+    max-width: 1320px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   DETAIL 3 COLUMNS LAYOUT: CATEGORIES (9) | DETAIL (6) | RECENT POST (10)
+   ========================================================================== */
+
+.cms-detail-layout {
+    width: 100% !important;
+    max-width: 1320px !important;
+    margin: 25px auto 40px !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+
+    display: grid !important;
+    grid-template-columns: 250px minmax(0, 1fr) 300px;
+    gap: 30px;
+    align-items: start;
+}
+
+
+/* ==========================================================================
+   1. CỘT TRÁI: CATEGORIES (MODULE 9)
+   ========================================================================== */
+
+.cms-detail-categories {
     width: 100%;
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px 30px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 25px;
+}
 
+.cms-detail-categories .cms-category-widget {
+    background: #ffffff;
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 20px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.cms-detail-categories .widget-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.cms-detail-categories .widget-divider-pattern {
+    height: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+    background: repeating-linear-gradient(-45deg,
+            #e2e8f0,
+            #e2e8f0 2px,
+            transparent 2px,
+            transparent 6px);
+}
+
+.cms-detail-categories .category-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cms-detail-categories .category-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.cms-detail-categories .category-item:last-child {
+    border-bottom: none;
+}
+
+.cms-detail-categories .category-item .bullet-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #f59e0b;
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.cms-detail-categories .category-item a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.cms-detail-categories .category-item a:hover {
+    color: #2563eb;
+    padding-left: 4px;
+}
+
+
+/* ==========================================================================
+   2. CỘT GIỮA: DETAIL (MODULE 6)
+   ========================================================================== */
+
+.cms-detail-layout .cms-detail {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 35px 40px;
     box-sizing: border-box;
 
     background-color: #fff;
-
-    /* hiệu ứng giấy/grid nhẹ */
     background-image:
-        linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
-
+        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
     background-size: 25px 25px;
 
-    border: 1px solid #ddd;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
-
-/* =========================
-   HEADER
-========================= */
-
+/* Detail Header (Title + Date) */
 .cms-detail-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-
-    gap: 30px;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
 }
-
-
-/* Title */
 
 .cms-detail-title {
     flex: 1;
-
-    margin: 0;
-
-    font-size: 28px;
-    line-height: 1.3;
-
+    font-size: 32px;
     font-weight: 700;
-
-    color: #222;
+    line-height: 1.35;
+    color: #1a202c;
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-
-/* =========================
-   DATE CIRCLE
-========================= */
-
+/* Date badge */
 .cms-detail-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     flex-shrink: 0;
+    padding: 8px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
 
-    width: 65px;
-    height: 65px;
-
-    border-radius: 50%;
-
-    background: #f5c518;
-
+.cms-date-left {
     display: flex;
     flex-direction: column;
-
-    justify-content: center;
     align-items: center;
-
-    color: #555;
-
     line-height: 1;
 }
 
-
-/* Day */
-
 .cms-detail-day {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    font-family: Georgia, serif;
 }
-
-
-/* Month */
 
 .cms-detail-month {
-    font-size: 12px;
-    margin-top: 3px;
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+.cms-date-divider {
+    width: 1px;
+    height: 32px;
+    background: #cbd5e1;
+    margin: 0 4px;
+}
 
-/* Year */
+.cms-date-right {
+    display: flex;
+    align-items: center;
+}
 
 .cms-detail-year {
-    font-size: 11px;
-    margin-top: 3px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #64748b;
+    font-family: Georgia, serif;
 }
 
-
-/* =========================
-   LINE
-========================= */
-
+/* Phân cách giữa header và nội dung */
 .cms-detail-line {
     width: 100%;
-
     height: 1px;
-
-    background: #ddd;
-
-    margin: 15px 0 25px;
+    background: #e2e8f0;
+    margin: 20px 0 30px;
 }
 
-
-/* =========================
-   CONTENT
-========================= */
-
+/* Post Content */
 .cms-detail-content {
-    font-size: 15px;
-
-    line-height: 1.7;
-
-    color: #666;
+    font-size: 16px;
+    line-height: 1.85;
+    color: #334155;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
-
-
-/* Paragraph */
 
 .cms-detail-content p {
-    margin: 0 0 20px;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    font-size: 16px;
+    line-height: 1.85;
+    color: #334155;
 }
 
+.cms-detail-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 6px;
+    display: block;
+    margin: 20px auto;
+}
 
-/* Heading inside post */
+.cms-detail-content figure {
+    margin: 25px 0;
+    max-width: 100% !important;
+}
+
+.cms-detail-content figure img {
+    margin: 0 auto;
+}
+
+.cms-detail-content figcaption {
+    font-size: 14px;
+    color: #64748b;
+    text-align: center;
+    margin-top: 8px;
+    font-style: italic;
+}
 
 .cms-detail-content h2,
 .cms-detail-content h3,
 .cms-detail-content h4 {
-    color: #333;
-
-    margin-top: 25px;
-    margin-bottom: 12px;
+    color: #0f172a;
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+    font-weight: 700;
+    line-height: 1.3;
 }
 
-
-/* Image */
-
-.cms-detail-content img {
-    max-width: 100%;
-    height: auto;
-
-    display: block;
-
-    margin: 20px auto;
-}
-
-
-/* =========================
-   AUTHOR
-========================= */
-
-.cms-detail-author {
-    text-align: right;
-
-    margin-top: 30px;
-
-    font-size: 13px;
-
-    color: #777;
-
+.cms-detail-content blockquote {
+    border-left: 4px solid #55b9bc;
+    padding: 12px 20px;
+    margin: 20px 0;
+    background: #f8fafc;
+    color: #475569;
     font-style: italic;
 }
+
+/* Tác giả */
+.cms-detail-author {
+    font-style: italic;
+    font-size: 15px;
+    color: #64748b;
+    text-align: right;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px dashed #cbd5e1;
+}
+
+/* Điều hướng bài trước / tiếp theo (Prev/Next) */
+.cms-detail-navigation {
+    margin-top: 30px;
+}
+
+.cms-detail-navigation .cms-prev-next-list {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+/* ==========================================================================
+   3. CỘT PHẢI: RECENT POST (MODULE 10)
+   ========================================================================== */
+
+.cms-detail-sidebar {
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 25px;
+}
+
+.cms-detail-sidebar .cms-recent-posts {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #55b9bc;
+    color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cms-detail-sidebar .cms-recent-posts-list {
+    padding: 20px;
+}
+
+.cms-detail-sidebar .cms-recent-post {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cms-detail-sidebar .cms-recent-post:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.cms-detail-sidebar .cms-recent-date {
+    position: relative;
+    width: 80px;
+    min-width: 80px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-family: Georgia, serif;
+}
+
+.cms-detail-sidebar .cms-recent-day {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 26px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.cms-detail-sidebar .cms-recent-month {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 26px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.cms-detail-sidebar .cms-recent-month::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 26px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.cms-detail-sidebar .cms-recent-year {
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.cms-detail-sidebar .cms-recent-title {
+    flex: 1;
+    padding-left: 12px;
+}
+
+.cms-detail-sidebar .cms-recent-title a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+    transition: text-decoration 0.2s ease;
+}
+
+.cms-detail-sidebar .cms-recent-title a:hover {
+    text-decoration: underline;
+}
+
+.cms-detail-sidebar .cms-recent-footer {
+    width: 100%;
+    padding: 14px 15px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+.cms-detail-sidebar .cms-recent-footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.cms-detail-sidebar .cms-recent-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* ==========================================================================
+   4. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Desktop vừa & Tablet ngang (992px - 1200px) */
+@media (max-width: 1200px) {
+    .cms-detail-layout {
+        grid-template-columns: 220px minmax(0, 1fr) 260px;
+        gap: 20px;
+        padding: 0 15px !important;
+    }
+
+    .cms-detail-layout .cms-detail {
+        padding: 25px 25px;
+    }
+
+    .cms-detail-title {
+        font-size: 26px;
+    }
+}
+
+/* Tablet dọc (768px - 991px) */
+@media (max-width: 991px) {
+    .cms-detail-layout {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    .cms-detail-sidebar {
+        grid-column: 1 / -1;
+        position: static;
+        margin-top: 15px;
+    }
+
+    .cms-detail-sidebar .cms-recent-posts {
+        max-width: 600px !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+    .cms-detail-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 25px !important;
+        padding: 0 12px !important;
+        margin: 15px auto 30px !important;
+    }
+
+    .cms-detail-categories {
+        position: static;
+        order: 2;
+    }
+
+    .cms-detail-layout .cms-detail {
+        order: 1;
+        padding: 20px 16px;
+    }
+
+    .cms-detail-sidebar {
+        position: static;
+        order: 3;
+    }
+
+    .cms-detail-header {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .cms-detail-title {
+        font-size: 22px;
+    }
+
+    .cms-detail-date {
+        align-self: flex-start;
+    }
+}
+
+
+

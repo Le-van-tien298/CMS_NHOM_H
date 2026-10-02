@@ -27,40 +27,35 @@ require_once CMS_NHOM_H_PATH . 'includes/module-header.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-search.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-archive.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';
-
-function cms_nhom_h_register_widget()
-{
-    register_widget('Widget_Test_4');
-}
-
-add_action('widgets_init', 'cms_nhom_h_register_widget');
-function cms_nhom_h_register_footer_widget()
-{
-    register_sidebar(array(
-        'name'          => 'Widget trước Footer',
-        'id'            => 'cms-before-footer',
-        'description'   => 'Widget hiển thị ngay phía trên Footer',
-        'before_widget' => '<div id="%1$s" class="cms-widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ));
-}
-
-add_action('widgets_init', 'cms_nhom_h_register_footer_widget');
 add_action('wp_footer', 'cms_nhom_h_render_archive_section');
 
-function cms_nhom_h_render_archive_section()
+// function cms_nhom_h_render_archive_section()
+// {
+//     // Ẩn Archive ở footer nếu đang ở trang Home hoặc trang Tìm kiếm
+//     if (is_home()) {
+//         return;
+//     }
+//     if (function_exists('cms_render_archive')) {
+//         cms_render_archive(8);
+//     }
+// }
+
+// Gọi file module-home.php làm giao diện cho trang Home
+add_filter('template_include', 'cms_nhom_h_override_home_template');
+function cms_nhom_h_override_home_template($template)
 {
-    if (function_exists('cms_render_archive')) {
-        cms_render_archive(8);
+    if (is_home() || is_front_page()) {
+        $home_template = CMS_NHOM_H_PATH . 'includes/module-home.php';
+        if (file_exists($home_template)) {
+            return $home_template;
+        }
     }
+    return $template;
 }
 
 /* ==========================================================================
    1. ĐĂNG KÝ VỊ TRÍ MENU TRONG ADMIN (Để quản lý menu kéo-thả)
    ========================================================================== */
-add_action('after_setup_theme', 'cms_nhom_h_register_menus');
 // cms_nhom_h.php
 add_action('init', 'cms_nhom_h_register_menus');
 function cms_nhom_h_register_menus()
@@ -70,15 +65,7 @@ function cms_nhom_h_register_menus()
         'cms_sidebar_menu' => 'Menu Mở Rộng (... Menu Drawer)',
     ));
 }
-add_action('wp_footer', 'cms_nhom_h_display_recent_posts');
-function cms_nhom_h_display_recent_posts()
-{
-    if (!is_home() && !is_front_page() && !is_archive()) {
-        return;
-    }
 
-    cms_nhom_h_render_recent_posts(3);
-}
 /* ==========================================================================
    2. RENDER HEADER & FOOTER
    ========================================================================== */
@@ -92,6 +79,13 @@ function cms_nhom_h_render_header()
     }
 }
 
+add_action('wp_footer', 'cms_nhom_h_display_comments');
+   function cms_nhom_h_display_comments()
+   {
+       if (is_single() &&function_exists('cms_nhom_h_render_comments')) {
+           cms_nhom_h_render_comments();
+       }
+   }
 // Gắn Footer
 add_action('wp_footer', 'cms_nhom_h_render_footer');
 
@@ -219,14 +213,12 @@ add_action('wp_enqueue_scripts', 'cms_nhom_h_enqueue_assets');
 function cms_nhom_h_enqueue_assets()
 {
     wp_enqueue_style('font-awesome-6', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1');
-    wp_enqueue_style('cms-nhom-h-style', CMS_NHOM_H_URL . 'assets/css/style.css', array(), '1.0.5');
+    wp_enqueue_style('cms-nhom-h-style', CMS_NHOM_H_URL . 'assets/css/style.css', array(), '1.0.6');
     wp_enqueue_style('cms-nhom-h-header', CMS_NHOM_H_URL . 'assets/css/header.css', array('cms-nhom-h-style'), '1.3.0');
     wp_enqueue_style('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/css/search.css', array('cms-nhom-h-header'), '1.3.0');
-    wp_enqueue_style('cms-nhom-h-footer', CMS_NHOM_H_URL . 'assets/css/footer.css', array('cms-nhom-h-header'), '1.3.0');
-    wp_enqueue_style('cms-nhom-h-comment', CMS_NHOM_H_URL . 'assets/css/comment.css', array('cms-nhom-h-style'), '1.0.0');
+    wp_enqueue_style('cms-nhom-h-footer', CMS_NHOM_H_URL . 'assets/css/footer.css', array('cms-nhom-h-header'), '1.4.0');
     wp_enqueue_style('cms-nhom-h-archive', CMS_NHOM_H_URL . 'assets/css/archive.css', array('cms-nhom-h-style'), '1.0.0');
     wp_enqueue_style('cms-prev-next', CMS_NHOM_H_URL . 'assets/css/prev-next.css', array(), '1.0');
     wp_enqueue_style('cms-recent-post', CMS_NHOM_H_URL . 'assets/css/recent-post.css', [], '1.0');
-    wp_enqueue_style('widget_test_4', CMS_NHOM_H_URL . 'assets/css/widget.css', array(), '1.0');
     wp_enqueue_script('cms-nhom-h-search', CMS_NHOM_H_URL . 'assets/js/search.js', array(), '1.3.0', true);
 }

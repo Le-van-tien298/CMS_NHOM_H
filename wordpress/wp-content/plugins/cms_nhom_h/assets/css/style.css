@@ -13,8 +13,9 @@
 }
     
     
-}
+
 li:has(.cms-post-card) {
+    
     list-style: none;
 }
 /* =========================

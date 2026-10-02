@@ -29,18 +29,18 @@ require_once CMS_NHOM_H_PATH . 'includes/module-comment.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-categories.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-latest-post.php';
 require_once CMS_NHOM_H_PATH . 'includes/module-widgets.php';
-add_action('wp_footer', 'cms_nhom_h_render_archive_section');
+// add_action('wp_footer', 'cms_nhom_h_render_archive_section');
 
-function cms_nhom_h_render_archive_section()
-{
-    // Ẩn Archive ở footer nếu đang ở trang Home hoặc trang Tìm kiếm
-    if (is_home() || is_front_page() || is_search()) {
-        return;
-    }
-    if (function_exists('cms_render_archive')) {
-        cms_render_archive(8);
-    }
-}
+// function cms_nhom_h_render_archive_section()
+// {
+//     // Ẩn Archive ở footer nếu đang ở trang Home hoặc trang Tìm kiếm
+//     if (is_home()) {
+//         return;
+//     }
+//     if (function_exists('cms_render_archive')) {
+//         cms_render_archive(8);
+//     }
+// }
 
 // Gọi file module-home.php làm giao diện cho trang Home
 add_filter('template_include', 'cms_nhom_h_override_home_template');
@@ -82,16 +82,12 @@ function cms_nhom_h_render_header()
 }
 
 add_action('wp_footer', 'cms_nhom_h_display_comments');
-function cms_nhom_h_display_comments()
-{
-    // Ẩn comments ở footer nếu đang ở trang chủ (vì đã có Widget lo) hoặc các trang danh sách
-    if (is_home() || is_front_page() || is_search() || is_archive()) {
-        return;
-    }
-    if (function_exists('cms_nhom_h_render_comments')) {
-        cms_nhom_h_render_comments();
-    }
-}
+   function cms_nhom_h_display_comments()
+   {
+       if (is_single() &&function_exists('cms_nhom_h_render_comments')) {
+           cms_nhom_h_render_comments();
+       }
+   }
 // Gắn Footer
 add_action('wp_footer', 'cms_nhom_h_render_footer');
 function cms_nhom_h_render_footer()
